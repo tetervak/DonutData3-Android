@@ -9,13 +9,17 @@
         android:id="@+id/nav_home"
         android:name="ca.tetervak.donutdata3.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/home_fragment" />
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_home_to_new_donut"
+            app:destination="@id/nav_new_donut" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
         android:name="ca.tetervak.donutdata3.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/gallery_fragment" />
 
     <fragment
         android:id="@+id/nav_donut_list"
@@ -28,6 +32,9 @@
         <action
             android:id="@+id/action_list_to_confirmationDialog"
             app:destination="@id/confirmationDialog" />
+        <action
+            android:id="@+id/action_donut_list_to_new_donut"
+            app:destination="@id/nav_new_donut" />
     </fragment>
 
     <fragment
@@ -74,4 +81,18 @@
         android:name="ca.tetervak.donutdata3.ui.wikipedia.WikiFragment"
         android:label="@string/fragment_wikipedia"
         tools:layout="@layout/wiki_fragment" />
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="ca.tetervak.donutdata3.ui.settings.SettingsFragment"
+        android:label="@string/fragment_settings" />
+    <action
+        android:id="@+id/action_global_donut_list"
+        app:destination="@id/nav_donut_list"
+        app:popUpTo="@id/nav_donut_list"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/nav_new_donut"
+        android:name="ca.tetervak.donutdata3.ui.newdonut.NewDonutFragment"
+        android:label="@string/fragment_new_donut"
+        tools:layout="@layout/new_donut_fragment" />
 </navigation>

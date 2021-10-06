@@ -75,7 +75,7 @@ class DonutListFragment : Fragment() {
 
         binding.fab.setOnClickListener {
             navController.navigate(
-                DonutListFragmentDirections.actionListToEntry(null)
+                DonutListFragmentDirections.actionDonutListToNewDonut()
             )
         }
 

@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_margin"
-        android:text="Database Demo App"
+        android:text="@string/database_demo_app"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
     <Button
@@ -32,14 +32,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/double_margin"
-        android:text="Add Donut" />
+        android:text="@string/button_add_donut" />
 
     <Button
         android:id="@+id/list_donuts_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin"
-        android:text="List Donuts" />
+        android:text="@string/button_list_donuts" />
 
     <Space
         android:layout_width="match_parent"
