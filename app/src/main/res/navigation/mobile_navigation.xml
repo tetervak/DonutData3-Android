@@ -27,35 +27,21 @@
         android:label="@string/fragment_donut_list"
         tools:layout="@layout/donut_list_fragment">
         <action
-            android:id="@+id/action_list_to_entry"
-            app:destination="@id/donutEntryFragment" />
-        <action
             android:id="@+id/action_list_to_confirmationDialog"
             app:destination="@id/confirmationDialog" />
         <action
             android:id="@+id/action_donut_list_to_new_donut"
             app:destination="@id/nav_new_donut" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/donutEntryFragment"
-        android:name="ca.tetervak.donutdata3.ui.donutentry.DonutEntryFragment"
-        android:label="@string/fragment_donut_entry"
-        tools:layout="@layout/donut_entry_fragment">
-        <argument
-            android:name="donutId"
-            app:argType="string"
-            app:nullable="true" />
         <action
-            android:id="@+id/action_entry_to_list"
-            app:destination="@id/nav_donut_list" />
+            android:id="@+id/action_donut_list_to_edit_donut"
+            app:destination="@id/nav_edit_donut" />
     </fragment>
 
     <dialog
-        android:id="@+id/aboutDialog"
+        android:id="@+id/nav_about"
         android:name="ca.tetervak.donutdata3.ui.dialogs.AboutDialog"
-        android:label="AboutDialog" />
-    <action android:id="@+id/action_global_about" app:destination="@id/aboutDialog" />
+        android:label="@string/fragment_about" />
+    <action android:id="@+id/action_global_about" app:destination="@id/nav_about" />
     <dialog
         android:id="@+id/confirmationDialog"
         android:name="ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog"
@@ -95,4 +81,13 @@
         android:name="ca.tetervak.donutdata3.ui.newdonut.NewDonutFragment"
         android:label="@string/fragment_new_donut"
         tools:layout="@layout/new_donut_fragment" />
+    <fragment
+        android:id="@+id/nav_edit_donut"
+        android:name="ca.tetervak.donutdata3.ui.editdonut.EditDonutFragment"
+        android:label="@string/fragment_edit_donut"
+        tools:layout="@layout/edit_donut_fragment">
+        <argument
+            android:name="donutId"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -52,7 +52,7 @@ class DonutListFragment : Fragment() {
         val adapter = DonutListAdapter(
             onEdit = { donut ->
                 navController.navigate(
-                    DonutListFragmentDirections.actionListToEntry(donut.id)
+                    DonutListFragmentDirections.actionDonutListToEditDonut(donut.id!!)
                 )
             },
             onDelete = { donut ->

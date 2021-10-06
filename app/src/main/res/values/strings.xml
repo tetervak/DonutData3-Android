@@ -26,11 +26,11 @@
         <item quantity="other">Donut Count: %1$d donuts</item>
     </plurals>
 
-    <!-- donut entry dialog -->
+    <!-- new/edit donut fragments -->
     <string name="donut_name">Donut name</string>
     <string name="donut_description">Description</string>
     <string name="donut_rating">Rating</string>
-    <string name="save">Save</string>
+    <string name="button_save">Save</string>
 
     <!-- fragment labels in navigation -->
     <string name="fragment_donut_list">Donut List</string>
@@ -40,6 +40,7 @@
     <string name="fragment_settings">Settings</string>
     <string name="fragment_new_donut">New Donut</string>
     <string name="fragment_edit_donut">Edit Donut</string>
+    <string name="fragment_about">About</string>
 
     <!-- about dialog -->
     <string name="about">About</string>
@@ -68,7 +69,7 @@
     <string name="database_demo_app">Database Demo App</string>
     <string name="button_add_donut">Add Donut</string>
     <string name="button_list_donuts">List Donuts</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 
 </resources>
