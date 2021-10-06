@@ -1,0 +1,20 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/confirmation_dialogs">
+
+        <CheckBoxPreference
+            app:defaultValue="true"
+            app:key="confirm_delete"
+            app:title="@string/confirm_delete_title"
+            app:summaryOn="@string/confirm_delete_on"
+            app:summaryOff="@string/confirm_delete_off"/>
+
+        <CheckBoxPreference
+            app:defaultValue="true"
+            app:key="confirm_clear"
+            app:title="@string/confirm_clear_title"
+            app:summaryOn="@string/confirm_clear_on"
+            app:summaryOff="@string/confirm_clear_off"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">Donut Data 3</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <!-- menu items -->
+    <string name="action_about">About</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- donut list item layout -->
+    <string name="donut_picture">Picture of donut</string>
+    <string name="delete_donut">delete donut</string>
+
+    <!-- donut list fragment layout -->
+    <string name="add_donut_info">Add more donut info!</string>
+    <plurals name="donut_count">
+        <item quantity="one">Donut Count: %1$d donut</item>
+        <item quantity="other">Donut Count: %1$d donuts</item>
+    </plurals>
+
+    <!-- donut entry dialog -->
+    <string name="donut_name">Donut name</string>
+    <string name="donut_description">Description</string>
+    <string name="donut_rating">Rating</string>
+    <string name="save">Save</string>
+
+    <!-- fragment labels -->
+    <string name="donut_list_label">Donut List</string>
+    <string name="donut_entry_label">Donut Entry</string>
+    <string name="image_list_label">Image List</string>
+
+    <!-- about dialog -->
+    <string name="about">About</string>
+    <string name="author">Alex Tetervak, Sheridan College, 2021</string>
+
+    <!-- confirmation dialog -->
+    <string name="default_confirm">Do you really want it?</string>
+    <string name="confirm_delete_message">Do you want to remove this donut?</string>
+    <string name="confirm_clear_message">Do you want to delete all donuts?</string>
+    <string name="do_not_ask_me_again">Do not ask me again.</string>
+
+    <!-- settings fragment -->
+    <string name="confirmation_dialogs">Confirmation Dialogs</string>
+    <string name="confirm_delete_title">Confirm Delete</string>
+    <string name="confirm_delete_on">Ask to confirm individual deletes</string>
+    <string name="confirm_delete_off">Don\'t ask to confirm individual deletes</string>
+    <string name="confirm_clear_title">Confirm Clear</string>
+    <string name="confirm_clear_on">Ask to confirm clearing the history</string>
+    <string name="confirm_clear_off">Don\'t ask to confirm clearing the history</string>
+    <string name="select_a_donut_image">Select a donut image</string>
+    <string name="menu_donut_list">Donut List</string>
+
+</resources>
