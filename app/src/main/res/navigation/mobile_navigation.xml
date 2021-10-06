@@ -9,7 +9,7 @@
         android:id="@+id/nav_home"
         android:name="ca.tetervak.donutdata3.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/home_fragment" />
 
     <fragment
         android:id="@+id/nav_gallery"
@@ -18,15 +18,9 @@
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="ca.tetervak.donutdata3.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-
-    <fragment
         android:id="@+id/nav_donut_list"
         android:name="ca.tetervak.donutdata3.ui.donutlist.DonutListFragment"
-        android:label="@string/donut_list_label"
+        android:label="@string/fragment_donut_list"
         tools:layout="@layout/donut_list_fragment">
         <action
             android:id="@+id/action_list_to_entry"
@@ -39,7 +33,7 @@
     <fragment
         android:id="@+id/donutEntryFragment"
         android:name="ca.tetervak.donutdata3.ui.donutentry.DonutEntryFragment"
-        android:label="@string/donut_entry_label"
+        android:label="@string/fragment_donut_entry"
         tools:layout="@layout/donut_entry_fragment">
         <argument
             android:name="donutId"
@@ -74,5 +68,10 @@
     <fragment
         android:id="@+id/imageListFragment"
         android:name="ca.tetervak.donutdata3.ui.imagelist.ImageListFragment"
-        android:label="@string/image_list_label" />
+        android:label="@string/fragment_image_list" />
+    <fragment
+        android:id="@+id/nav_wikipedia"
+        android:name="ca.tetervak.donutdata3.ui.wikipedia.WikiFragment"
+        android:label="@string/fragment_wikipedia"
+        tools:layout="@layout/wiki_fragment" />
 </navigation>
