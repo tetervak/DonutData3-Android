@@ -3,6 +3,7 @@ package ca.tetervak.donutdata3.repositories
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import ca.tetervak.donutdata3.database.DonutDao
 import ca.tetervak.donutdata3.database.DonutEntity
 import ca.tetervak.donutdata3.domain.Donut
@@ -20,7 +21,7 @@ class DonutRepositoryRoom @Inject constructor(private val donutDao: DonutDao)
     }
 
     override fun getAll(): LiveData<List<Donut>> {
-        return Transformations.map(donutDao.getAll()) { list -> list.map { it.asDonut() }}
+        return donutDao.getAll().map { list -> list.map { it.asDonut() } }
     }
 
     override suspend fun get(id: String): Donut {
@@ -51,9 +52,27 @@ class DonutRepositoryRoom @Inject constructor(private val donutDao: DonutDao)
 }
 
 fun DonutEntity.asDonut(): Donut {
-    return Donut(id.toString(), name, description, rating, lowFat)
+    return Donut(
+        id = id.toString(),
+        name = name,
+        description = description,
+        rating = rating,
+        lowFat = lowFat,
+        brand = brand,
+        imageFile = imageFile,
+        date = date
+    )
 }
 
 fun Donut.asEntity(): DonutEntity {
-    return DonutEntity(id?.toLong() ?: 0L, name, description, rating, lowFat)
+    return DonutEntity(
+        id = id?.toLong() ?: 0L,
+        name = name,
+        description = description,
+        rating = rating,
+        lowFat = lowFat,
+        brand = brand,
+        imageFile = imageFile,
+        date = date
+    )
 }

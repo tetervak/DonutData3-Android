@@ -23,7 +23,6 @@ class DonutListAdapter(
 
         fun bind(donut: Donut) {
             binding.donut = donut
-            binding.thumbnail.setImageResource(R.drawable.donut_with_sprinkles)
             binding.deleteButton.setOnClickListener {
                 onDelete(donut)
             }

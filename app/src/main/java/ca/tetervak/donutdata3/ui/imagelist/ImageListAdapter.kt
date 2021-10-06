@@ -53,17 +53,12 @@ class ImageListAdapter(
                     resources.getColor(R.color.white,null))
             }
             val fileName = getItem(index)
-            val context = binding.root.context
-            val filePath = "images/donuts/$fileName"
-            context.assets.open(filePath).use{
-                val drawable = Drawable.createFromStream(it,null)
-                binding.imageView.setImageDrawable(drawable)
-            }
+            binding.fileName = fileName
             binding.card.setOnClickListener {
                 selectedItemIndex = index
                 onSelect(fileName)
             }
-            //binding.executePendingBindings()
+            binding.executePendingBindings()
         }
     }
 
