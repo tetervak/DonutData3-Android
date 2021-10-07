@@ -21,9 +21,9 @@ import javax.inject.Inject
 class DonutListFragment : Fragment() {
 
     companion object{
-        const val TAG = "DonutListFragment"
-        const val CONFIRM_CLEAR_ALL: Int = 1
-        const val CONFIRM_DELETE_ITEM: Int = 2
+        private const val TAG = "DonutListFragment"
+        private const val CONFIRM_CLEAR_ALL: Int = 1
+        private const val CONFIRM_DELETE_ITEM: Int = 2
     }
 
     private val donutListViewModel: DonutListViewModel by viewModels()

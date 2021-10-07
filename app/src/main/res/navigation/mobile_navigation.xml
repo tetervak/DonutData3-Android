@@ -89,6 +89,9 @@
         <action
             android:id="@+id/action_new_donut_to_select_image"
             app:destination="@id/nav_select_image" />
+        <action
+            android:id="@+id/action_new_donut_to_date_dialog"
+            app:destination="@id/nav_date_dialog" />
     </fragment>
     <fragment
         android:id="@+id/nav_edit_donut"
@@ -99,4 +102,15 @@
             android:name="donutId"
             app:argType="string" />
     </fragment>
+    <dialog
+        android:id="@+id/nav_date_dialog"
+        android:name="ca.tetervak.donutdata3.ui.dialogs.DateDialog"
+        android:label="DateDialog" >
+        <argument
+            android:name="requestCode"
+            app:argType="integer" />
+        <argument
+            android:name="date"
+            app:argType="java.util.Date" />
+    </dialog>
 </navigation>

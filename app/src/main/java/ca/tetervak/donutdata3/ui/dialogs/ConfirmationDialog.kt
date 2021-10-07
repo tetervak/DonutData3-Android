@@ -25,7 +25,7 @@ class ConfirmationDialog : DialogFragment() {
 
     companion object {
         private const val TAG = "ConfirmationDialog"
-        const val CONFIRMATION_RESULT = "confirmation_result"
+        private const val CONFIRMATION_RESULT = "confirmation_result"
 
         fun setResultListener(
             fragment: Fragment,
@@ -56,7 +56,6 @@ class ConfirmationDialog : DialogFragment() {
     }
 
     private val safeArgs: ConfirmationDialogArgs by navArgs()
-
     private lateinit var navController: NavController
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
