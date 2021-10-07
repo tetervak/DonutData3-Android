@@ -5,9 +5,9 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 private val dateFormatter =
-    DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy")
+    DateTimeFormatter.ofPattern("EEE, MMM dd, yyyy")
 
-private val timeFormatter = DateTimeFormatter.ofPattern("h:mm:s a")
+private val timeFormatter = DateTimeFormatter.ofPattern("h:mm a")
 
 private val dateTimeFormatter =
     DateTimeFormatter.ofPattern("EEE, MMM dd, yyyy - h:mm a")

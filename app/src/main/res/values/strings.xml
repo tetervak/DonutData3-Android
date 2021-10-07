@@ -72,6 +72,8 @@
     <string name="low_fat">Low fat</string>
     <string name="button_change_image">Change Image</string>
     <string name="brand">Brand</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
 
 
 </resources>

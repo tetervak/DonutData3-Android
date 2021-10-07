@@ -16,6 +16,7 @@ import ca.tetervak.donutdata3.domain.Brand
 import ca.tetervak.donutdata3.domain.Donut
 import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment.Companion.FILE_NAME
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class NewDonutFragment : Fragment() {
@@ -28,6 +29,7 @@ class NewDonutFragment : Fragment() {
     private lateinit var navController: NavController
 
     private var donutImage: String = "cinnamon_sugar.png"
+    private var date: Date = Date()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,7 @@ class NewDonutFragment : Fragment() {
         navController = findNavController()
 
         binding.fileName = donutImage
+        binding.date = date
 
         binding.changeImageButton.setOnClickListener {
             navController.navigate(
@@ -54,7 +57,8 @@ class NewDonutFragment : Fragment() {
                     rating = binding.ratingBar.rating,
                     lowFat = binding.lowFatCheckBox.isChecked,
                     brand = Brand.values()[binding.brandSpinner.selectedItemPosition],
-                    imageFile = donutImage
+                    imageFile = donutImage,
+                    date = date
                 )
             )
             showList()
