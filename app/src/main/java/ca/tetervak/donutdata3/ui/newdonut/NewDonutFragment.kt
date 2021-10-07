@@ -16,6 +16,7 @@ import ca.tetervak.donutdata3.databinding.NewDonutFragmentBinding
 import ca.tetervak.donutdata3.domain.Brand
 import ca.tetervak.donutdata3.domain.Donut
 import ca.tetervak.donutdata3.ui.dialogs.DateDialog
+import ca.tetervak.donutdata3.ui.dialogs.TimeDialog
 import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment.Companion.FILE_NAME
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -25,6 +26,7 @@ class NewDonutFragment : Fragment() {
 
     companion object{
         private const val DATE_REQUEST: Int = 1
+        private const val TIME_REQUEST: Int = 1
     }
 
     private var _binding: NewDonutFragmentBinding? = null
@@ -86,13 +88,27 @@ class NewDonutFragment : Fragment() {
 
         binding.dateLink.setOnClickListener {
             navController.navigate(
-                NewDonutFragmentDirections.actionNewDonutToDateDialog(DATE_REQUEST,date)
+                NewDonutFragmentDirections.actionNewDonutToDateDialog(DATE_REQUEST, date)
             )
         }
 
         // get date from DateDialog
         DateDialog.setResultListener(this, R.id.nav_new_donut){ result->
             if(result?.requestCode == DATE_REQUEST){
+                date = result.date
+                binding.date = date
+            }
+        }
+
+        binding.timeLink.setOnClickListener {
+            navController.navigate(
+                NewDonutFragmentDirections.actionNewDonutToTimeDialog(TIME_REQUEST, date)
+            )
+        }
+
+        // get time from TimeDialog
+        TimeDialog.setResultListener(this, R.id.nav_new_donut){ result->
+            if(result?.requestCode == TIME_REQUEST){
                 date = result.date
                 binding.date = date
             }

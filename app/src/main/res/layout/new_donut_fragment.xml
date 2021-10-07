@@ -182,7 +182,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <TextView
-                        android:id="@+id/date_link"
+                        android:id="@+id/dateLink"
                         dateValue="@{date}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -206,12 +206,14 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <TextView
+                        android:id="@+id/timeLink"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginStart="@dimen/small_margin"
                         timeValue="@{date}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/purple_500"
                         android:textStyle="italic"
                         tools:text="10:45 AM"/>
                 </TableRow>

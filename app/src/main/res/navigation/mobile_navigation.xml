@@ -92,6 +92,9 @@
         <action
             android:id="@+id/action_new_donut_to_date_dialog"
             app:destination="@id/nav_date_dialog" />
+        <action
+            android:id="@+id/action_new_donut_to_time_dialog"
+            app:destination="@id/nav_time_dialog" />
     </fragment>
     <fragment
         android:id="@+id/nav_edit_donut"
@@ -105,7 +108,18 @@
     <dialog
         android:id="@+id/nav_date_dialog"
         android:name="ca.tetervak.donutdata3.ui.dialogs.DateDialog"
-        android:label="DateDialog" >
+        android:label="Date Dialog">
+        <argument
+            android:name="requestCode"
+            app:argType="integer" />
+        <argument
+            android:name="date"
+            app:argType="java.util.Date" />
+    </dialog>
+    <dialog
+        android:id="@+id/nav_time_dialog"
+        android:name="ca.tetervak.donutdata3.ui.dialogs.TimeDialog"
+        android:label="Time Dialog" >
         <argument
             android:name="requestCode"
             app:argType="integer" />
