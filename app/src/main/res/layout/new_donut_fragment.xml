@@ -183,7 +183,7 @@
 
                     <TextView
                         android:id="@+id/date_link"
-                        date="@{date}"
+                        dateValue="@{date}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
@@ -210,7 +210,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginStart="@dimen/small_margin"
-                        time="@{date}"
+                        timeValue="@{date}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textStyle="italic"
                         tools:text="10:45 AM"/>

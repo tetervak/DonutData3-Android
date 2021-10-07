@@ -7,19 +7,19 @@ import ca.tetervak.donutdata3.util.formatDateTime
 import ca.tetervak.donutdata3.util.formatTime
 import java.util.*
 
-@BindingAdapter("date")
+@BindingAdapter("dateValue")
 fun bindDate(textView: TextView, date: Date?) {
     if (date is Date)
         textView.text = formatDate(date)
 }
 
-@BindingAdapter("time")
+@BindingAdapter("timeValue")
 fun bindTime(textView: TextView, date: Date?) {
     if (date is Date)
         textView.text = formatTime(date)
 }
 
-@BindingAdapter("date_time")
+@BindingAdapter("dateTimeValue")
 fun bindDateTime(textView: TextView, date: Date?) {
     if (date is Date)
         textView.text = formatDateTime(date)
