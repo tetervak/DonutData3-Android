@@ -1,20 +1,19 @@
-package ca.tetervak.donutdata3.ui.imagelist
+package ca.tetervak.donutdata3.ui.selectimage
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ca.tetervak.donutdata3.R
-import ca.tetervak.donutdata3.databinding.ImageListItemBinding
+import ca.tetervak.donutdata3.databinding.SelectImageItemBinding
 
-class ImageListAdapter(
+class SelectImageAdapter(
     private var onSelect: (String) -> Unit
-): RecyclerView.Adapter<ImageListAdapter.ViewHolder>(){
+): RecyclerView.Adapter<SelectImageAdapter.ViewHolder>(){
 
     private var list: List<String>? = null
 
-    var selectedItemIndex: Int? = null
+    private var selectedItemIndex: Int? = null
     set(index){
         if(index != field){
             val previouslySelected = field
@@ -35,7 +34,7 @@ class ImageListAdapter(
     }
 
     inner class ViewHolder(
-        private val binding: ImageListItemBinding
+        private val binding: SelectImageItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(index: Int){
@@ -64,7 +63,7 @@ class ImageListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ImageListItemBinding.inflate(layoutInflater, parent, false)
+        val binding = SelectImageItemBinding.inflate(layoutInflater, parent, false)
         return ViewHolder(binding)
     }
 
@@ -80,5 +79,8 @@ class ImageListAdapter(
         return list?.size ?: 0
     }
 
+    fun selectImage(fileName: String){
+        selectedItemIndex = list?.indexOf(fileName)
+    }
 
 }

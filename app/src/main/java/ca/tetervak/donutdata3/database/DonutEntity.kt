@@ -6,10 +6,6 @@ import androidx.room.PrimaryKey
 import ca.tetervak.donutdata3.domain.Brand
 import java.util.*
 
-/**
- * This class holds the data that we are tracking for each donut: its name, a description, and
- * a rating.
- */
 @Entity(tableName = "donuts")
 data class DonutEntity(
 

@@ -1,4 +1,4 @@
-package ca.tetervak.donutdata3.ui.imagelist
+package ca.tetervak.donutdata3.ui.selectimage
 
 import android.content.Context
 import android.util.Log
@@ -8,7 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltViewModel
-class ImageListViewModel @Inject constructor(@ApplicationContext context: Context): ViewModel(){
+class SelectImageViewModel @Inject constructor(@ApplicationContext context: Context): ViewModel(){
     companion object{
         private const val TAG = "ImageListViewModel"
     }

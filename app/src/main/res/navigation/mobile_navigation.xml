@@ -59,9 +59,14 @@
             app:nullable="true" />
     </dialog>
     <fragment
-        android:id="@+id/imageListFragment"
-        android:name="ca.tetervak.donutdata3.ui.imagelist.ImageListFragment"
-        android:label="@string/fragment_image_list" />
+        android:id="@+id/nav_select_image"
+        android:name="ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment"
+        android:label="@string/fragment_select_image"
+        tools:layout="@layout/select_image_fragment">
+        <argument
+            android:name="fileName"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/nav_wikipedia"
         android:name="ca.tetervak.donutdata3.ui.wikipedia.WikiFragment"
@@ -80,7 +85,11 @@
         android:id="@+id/nav_new_donut"
         android:name="ca.tetervak.donutdata3.ui.newdonut.NewDonutFragment"
         android:label="@string/fragment_new_donut"
-        tools:layout="@layout/new_donut_fragment" />
+        tools:layout="@layout/new_donut_fragment" >
+        <action
+            android:id="@+id/action_new_donut_to_select_image"
+            app:destination="@id/nav_select_image" />
+    </fragment>
     <fragment
         android:id="@+id/nav_edit_donut"
         android:name="ca.tetervak.donutdata3.ui.editdonut.EditDonutFragment"
