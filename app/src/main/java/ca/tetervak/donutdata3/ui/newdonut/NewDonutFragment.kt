@@ -25,6 +25,7 @@ class NewDonutFragment : Fragment() {
     companion object{
         private const val DATE_REQUEST: Int = 1
         private const val TIME_REQUEST: Int = 1
+        private const val DATE = "date"
     }
 
     private val mainViewModel: MainViewModel by activityViewModels()
@@ -41,13 +42,18 @@ class NewDonutFragment : Fragment() {
         val binding = NewDonutFragmentBinding.inflate(inflater, container, false)
         navController = findNavController()
 
+        if (savedInstanceState is Bundle) {
+            date = savedInstanceState.getSerializable(DATE) as Date
+        }
+
         binding.fileName = donutImage
         binding.date = date
 
+        binding.card.setOnClickListener {
+            changeImage()
+        }
         binding.changeImageButton.setOnClickListener {
-            navController.navigate(
-                NewDonutFragmentDirections.actionNewDonutToSelectImage(donutImage)
-            )
+            changeImage()
         }
 
         binding.saveButton.setOnClickListener {
@@ -112,9 +118,20 @@ class NewDonutFragment : Fragment() {
         return binding.root
     }
 
+    private fun changeImage() {
+        navController.navigate(
+            NewDonutFragmentDirections.actionNewDonutToSelectImage(donutImage)
+        )
+    }
+
     private fun showList() {
         navController.navigate(
             NewDonutFragmentDirections.actionGlobalDonutList()
         )
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable(DATE, date)
     }
 }

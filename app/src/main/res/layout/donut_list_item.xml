@@ -14,6 +14,7 @@
 
         <ImageView
             android:id="@+id/thumbnail"
+            donutImage="@{donut.imageFile}"
             android:layout_width="@dimen/donut_image_size"
             android:layout_height="@dimen/donut_image_size"
             android:layout_margin="8dp"
@@ -21,7 +22,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            donutImage="@{donut.imageFile}"
             tools:srcCompat="@drawable/donut_with_sprinkles" />
 
         <TextView
@@ -30,13 +30,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="@{donut.name}"
-            tools:text="Donut"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/rating"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/thumbnail"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="donut" />
 
         <TextView
             android:id="@+id/description"
@@ -44,11 +45,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="@{donut.description}"
-            tools:text="@string/nav_app_bar_navigate_up_description"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintEnd_toStartOf="@+id/rating"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/thumbnail"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            tools:text="description" />
 
         <TextView
             android:id="@+id/rating"
@@ -61,19 +63,34 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/deleteButton"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="4" />
+            tools:text="4.0" />
 
         <ImageButton
             android:id="@+id/deleteButton"
             style="@android:style/Widget.DeviceDefault.Light.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@null"
             android:contentDescription="@string/delete_donut"
             android:padding="4dp"
-            android:background="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_clear_24" />
+
+        <TextView
+            android:id="@+id/date_and_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textStyle="italic"
+            dateTimeValue="@{donut.date}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/thumbnail"
+            app:layout_constraintTop_toBottomOf="@+id/description"
+            tools:text="date and time" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

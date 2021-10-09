@@ -104,6 +104,15 @@
         <argument
             android:name="donutId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_edit_donut_to_select_image"
+            app:destination="@id/nav_select_image" />
+        <action
+            android:id="@+id/action_edit_donut_to_date_dialog"
+            app:destination="@id/nav_date_dialog" />
+        <action
+            android:id="@+id/action_edit_donut_to_time_dialog"
+            app:destination="@id/nav_time_dialog" />
     </fragment>
     <dialog
         android:id="@+id/nav_date_dialog"
