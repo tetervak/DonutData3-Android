@@ -29,8 +29,9 @@ class EditDonutFragment : Fragment() {
 
         val binding = EditDonutFragmentBinding.inflate(inflater, container, false)
 
-        binding.viewModel = editDonutViewModel
-        binding.lifecycleOwner = viewLifecycleOwner
+        editDonutViewModel.donut.observe(viewLifecycleOwner){
+
+        }
 
         binding.saveButton.setOnClickListener {
             mainViewModel.save(
