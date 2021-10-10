@@ -1,9 +1,5 @@
 <resources>
     <string name="app_name">Donut Data 3</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
     <!-- menu items -->
@@ -46,7 +42,6 @@
 
     <!-- fragment labels in navigation -->
     <string name="fragment_donut_list">Donut List</string>
-    <string name="fragment_donut_entry">Donut Entry</string>
     <string name="fragment_select_image">Select Image</string>
     <string name="fragment_wikipedia">Wikipedia</string>
     <string name="fragment_settings">Settings</string>
@@ -58,7 +53,6 @@
     <string name="fragment_time_dialog">Time</string>
 
     <!-- about dialog -->
-    <string name="about">About</string>
     <string name="author">Alex Tetervak, Sheridan College, 2021</string>
 
     <!-- confirmation dialog -->

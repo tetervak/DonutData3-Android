@@ -35,7 +35,7 @@ class DateDialog : DialogFragment() {
                 if (event == Lifecycle.Event.ON_RESUME
                     && handle.contains(DATE_RESULT)
                 ) {
-                    val result: DateResult? = handle.get(DATE_RESULT);
+                    val result: DateResult? = handle.get(DATE_RESULT)
                     onResult(result)
                 }
             }

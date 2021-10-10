@@ -36,7 +36,7 @@ class TimeDialog : DialogFragment() {
                 if (event == Lifecycle.Event.ON_RESUME
                     && handle.contains(TIME_RESULT)
                 ) {
-                    val result: DateResult? = handle.get(TIME_RESULT);
+                    val result: DateResult? = handle.get(TIME_RESULT)
                     onResult(result)
                 }
             }

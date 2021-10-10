@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ca.tetervak.donutdata3.R
 import ca.tetervak.donutdata3.databinding.DonutListItemBinding
 import ca.tetervak.donutdata3.domain.Donut
 

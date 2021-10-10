@@ -39,7 +39,7 @@ class ConfirmationDialog : DialogFragment() {
                 if (event == Lifecycle.Event.ON_RESUME
                     && handle.contains(CONFIRMATION_RESULT)
                 ) {
-                    val result: ConfirmationResult? = handle.get(CONFIRMATION_RESULT);
+                    val result: ConfirmationResult? = handle.get(CONFIRMATION_RESULT)
                     onResult(result)
                     handle.remove<ConfirmationResult>(CONFIRMATION_RESULT)
                     Log.d(TAG, "setResultListener: onResult is called")

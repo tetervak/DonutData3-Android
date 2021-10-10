@@ -20,8 +20,6 @@ import ca.tetervak.donutdata3.ui.binding.bindTime
 import ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog
 import ca.tetervak.donutdata3.ui.dialogs.DateDialog
 import ca.tetervak.donutdata3.ui.dialogs.TimeDialog
-import ca.tetervak.donutdata3.ui.donutlist.DonutListFragment
-import ca.tetervak.donutdata3.ui.donutlist.DonutListFragmentDirections
 import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
