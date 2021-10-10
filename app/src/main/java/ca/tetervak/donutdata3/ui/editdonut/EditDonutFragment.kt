@@ -85,10 +85,10 @@ class EditDonutFragment : Fragment() {
         }
 
         binding.card.setOnClickListener {
-            changeImage()
+            onChangeImage()
         }
         binding.changeImageButton.setOnClickListener {
-            changeImage()
+            onChangeImage()
         }
 
         binding.saveButton.setOnClickListener {
@@ -156,7 +156,7 @@ class EditDonutFragment : Fragment() {
         return binding.root
     }
 
-    private fun changeImage() {
+    private fun onChangeImage() {
         navController.navigate(
             EditDonutFragmentDirections.actionEditDonutToSelectImage(donutImage)
         )
