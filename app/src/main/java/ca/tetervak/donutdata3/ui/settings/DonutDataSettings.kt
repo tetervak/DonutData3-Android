@@ -19,6 +19,9 @@ class DonutDataSettings @Inject constructor(@ApplicationContext context: Context
             return Brand.values()[index]
         }
 
+    val defaultLowFat: Boolean
+        get() = preferences.getBoolean("default_low_fat", false)
+
     var confirmDelete: Boolean
         get() = preferences.getBoolean("confirm_delete", true)
         set(pref) = preferences.edit().putBoolean("confirm_delete", pref).apply()

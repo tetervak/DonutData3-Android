@@ -53,11 +53,13 @@ class NewDonutFragment : Fragment() {
 
         if (savedInstanceState is Bundle) {
             date = savedInstanceState.getSerializable(DATE) as Date
+        } else {
+            binding.brandSpinner.setSelection(settings.defaultBrand.ordinal)
+            binding.lowFatCheckBox.isChecked = settings.defaultLowFat
         }
 
         binding.fileName = donutImage
         binding.date = date
-        binding.brandSpinner.setSelection(settings.defaultBrand.ordinal)
 
         binding.card.setOnClickListener {
             onChangeImage()

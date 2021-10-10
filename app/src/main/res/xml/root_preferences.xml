@@ -10,6 +10,13 @@
             app:title="@string/donut_brand"
             app:useSimpleSummaryProvider="true" />
 
+        <CheckBoxPreference
+            app:defaultValue="false"
+            app:key="default_low_fat"
+            app:title="@string/low_fat"
+            app:summaryOn="@string/low_fat_donut"
+            app:summaryOff="@string/not_a_low_fat_donut"/>
+
     </PreferenceCategory>
 
 
