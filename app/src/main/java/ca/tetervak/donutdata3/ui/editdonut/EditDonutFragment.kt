@@ -1,10 +1,9 @@
 package ca.tetervak.donutdata3.ui.editdonut
 
 import android.os.Bundle
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -18,22 +17,33 @@ import ca.tetervak.donutdata3.domain.Donut
 import ca.tetervak.donutdata3.ui.binding.bindDate
 import ca.tetervak.donutdata3.ui.binding.bindDonutImage
 import ca.tetervak.donutdata3.ui.binding.bindTime
+import ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog
 import ca.tetervak.donutdata3.ui.dialogs.DateDialog
 import ca.tetervak.donutdata3.ui.dialogs.TimeDialog
+import ca.tetervak.donutdata3.ui.donutlist.DonutListFragment
+import ca.tetervak.donutdata3.ui.donutlist.DonutListFragmentDirections
 import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment
+import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class EditDonutFragment : Fragment() {
 
     companion object{
+        private const val TAG = "EditDonutFragment"
+        private const val CONFIRM_DELETE_ITEM: Int = 2
         private const val DATE_REQUEST: Int = 1
         private const val TIME_REQUEST: Int = 1
         private const val DONUT_IMAGE = "donutImage"
         private const val DATE = "date"
         private const val IS_DONUT_LOADED = "isDonutLoaded"
     }
+
+    private var _binding: EditDonutFragmentBinding? = null
+    private val binding: EditDonutFragmentBinding
+        get() = _binding!!
 
     private val safeArgs: EditDonutFragmentArgs by navArgs()
     private val editDonutViewModel: EditDonutViewModel by viewModels()
@@ -45,13 +55,21 @@ class EditDonutFragment : Fragment() {
 
     private var isDonutLoaded: Boolean = false
 
+    @Inject
+    lateinit var settings: DonutDataSettings
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        val binding = EditDonutFragmentBinding.inflate(inflater, container, false)
+        _binding = EditDonutFragmentBinding.inflate(inflater, container, false)
         navController = findNavController()
 
         if (savedInstanceState is Bundle) {
@@ -90,27 +108,9 @@ class EditDonutFragment : Fragment() {
         binding.changeImageButton.setOnClickListener {
             onChangeImage()
         }
-
         binding.saveButton.setOnClickListener {
-            if(binding.name.text.toString().isNotBlank()) {
-                mainViewModel.save(
-                    Donut(
-                        id = safeArgs.donutId,
-                        name = binding.name.text.toString(),
-                        description =  binding.description.text.toString(),
-                        rating = binding.ratingBar.rating,
-                        lowFat = binding.lowFatCheckBox.isChecked,
-                        brand = Brand.values()[binding.brandSpinner.selectedItemPosition],
-                        imageFile = donutImage,
-                        date = date
-                    )
-                )
-                showList()
-            } else {
-                binding.name.error = getString(R.string.cannot_be_blank)
-            }
+            onSave()
         }
-
         binding.cancelButton.setOnClickListener {
             showList()
         }
@@ -153,7 +153,40 @@ class EditDonutFragment : Fragment() {
             }
         }
 
+        ConfirmationDialog.setResultListener(this, R.id.nav_edit_donut) { result ->
+            when (result?.requestCode) {
+                CONFIRM_DELETE_ITEM -> {
+                    Log.d(TAG, "onCreateView: delete item id=${result.itemId} is confirmed")
+                    mainViewModel.delete(result.itemId!!)
+                    if(result.doNotAskAgain){
+                        settings.confirmDelete = false
+                    }
+                    showList()
+                }
+            }
+        }
+
         return binding.root
+    }
+
+    private fun onSave() {
+        if (binding.name.text.toString().isNotBlank()) {
+            mainViewModel.save(
+                Donut(
+                    id = safeArgs.donutId,
+                    name = binding.name.text.toString(),
+                    description = binding.description.text.toString(),
+                    rating = binding.ratingBar.rating,
+                    lowFat = binding.lowFatCheckBox.isChecked,
+                    brand = Brand.values()[binding.brandSpinner.selectedItemPosition],
+                    imageFile = donutImage,
+                    date = date
+                )
+            )
+            showList()
+        } else {
+            binding.name.error = getString(R.string.cannot_be_blank)
+        }
     }
 
     private fun onChangeImage() {
@@ -173,5 +206,43 @@ class EditDonutFragment : Fragment() {
         outState.putString(DONUT_IMAGE, donutImage)
         outState.putSerializable(DATE, date)
         outState.putSerializable(IS_DONUT_LOADED, isDonutLoaded)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.edit, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_delete -> {
+                onDelete()
+                true
+            }
+            R.id.action_save -> {
+                onSave()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun onDelete() {
+        if (settings.confirmDelete) {
+            val action = EditDonutFragmentDirections.actionEditDonutToConfirmation(
+                getString(R.string.confirm_delete_message),
+                CONFIRM_DELETE_ITEM,
+                safeArgs.donutId
+            )
+            navController.navigate(action)
+        } else {
+            mainViewModel.delete(safeArgs.donutId)
+            showList()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

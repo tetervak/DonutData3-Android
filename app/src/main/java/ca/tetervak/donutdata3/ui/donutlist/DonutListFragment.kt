@@ -57,7 +57,7 @@ class DonutListFragment : Fragment() {
             },
             onDelete = { donut ->
                 if(settings.confirmDelete){
-                    val action = DonutListFragmentDirections.actionListToConfirmationDialog(
+                    val action = DonutListFragmentDirections.actionDonutListToConfirmation(
                         getString(R.string.confirm_delete_message),
                         CONFIRM_DELETE_ITEM,
                         donut.id
@@ -110,7 +110,7 @@ class DonutListFragment : Fragment() {
         return when (item.itemId) {
             R.id.action_clear -> {
                 if(settings.confirmClear){
-                    val action = DonutListFragmentDirections.actionListToConfirmationDialog(
+                    val action = DonutListFragmentDirections.actionDonutListToConfirmation(
                         getString(R.string.confirm_clear_message),
                         CONFIRM_CLEAR_ALL,
                         null
