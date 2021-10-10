@@ -28,6 +28,10 @@ class NewDonutFragment : Fragment() {
         private const val DATE = "date"
     }
 
+    private var _binding: NewDonutFragmentBinding? = null
+    private val binding: NewDonutFragmentBinding
+        get() = _binding!!
+
     private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var navController: NavController
 
@@ -39,7 +43,7 @@ class NewDonutFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val binding = NewDonutFragmentBinding.inflate(inflater, container, false)
+        _binding = NewDonutFragmentBinding.inflate(inflater, container, false)
         navController = findNavController()
 
         if (savedInstanceState is Bundle) {
@@ -50,34 +54,21 @@ class NewDonutFragment : Fragment() {
         binding.date = date
 
         binding.card.setOnClickListener {
-            changeImage()
+            onChangeImage()
         }
         binding.changeImageButton.setOnClickListener {
-            changeImage()
+            onChangeImage()
+        }
+
+        binding.saveDonutFab.setOnClickListener {
+            onSave()
         }
 
         binding.saveButton.setOnClickListener {
-
-            if(binding.name.text.toString().isNotBlank()){
-                mainViewModel.save(
-                    Donut(
-                        id = null,
-                        name = binding.name.text.toString(),
-                        description =  binding.description.text.toString(),
-                        rating = binding.ratingBar.rating,
-                        lowFat = binding.lowFatCheckBox.isChecked,
-                        brand = Brand.values()[binding.brandSpinner.selectedItemPosition],
-                        imageFile = donutImage,
-                        date = date
-                    )
-                )
-                showList()
-            } else {
-                binding.name.error = getString(R.string.cannot_be_blank)
-            }
+            onSave()
         }
 
-        // User clicked the Cancel button; just exit the dialog without saving the data
+        // User clicked the Cancel button
         binding.cancelButton.setOnClickListener {
             showList()
         }
@@ -123,7 +114,27 @@ class NewDonutFragment : Fragment() {
         return binding.root
     }
 
-    private fun changeImage() {
+    private fun onSave() {
+        if (binding.name.text.toString().isNotBlank()) {
+            mainViewModel.save(
+                Donut(
+                    id = null,
+                    name = binding.name.text.toString(),
+                    description = binding.description.text.toString(),
+                    rating = binding.ratingBar.rating,
+                    lowFat = binding.lowFatCheckBox.isChecked,
+                    brand = Brand.values()[binding.brandSpinner.selectedItemPosition],
+                    imageFile = donutImage,
+                    date = date
+                )
+            )
+            showList()
+        } else {
+            binding.name.error = getString(R.string.cannot_be_blank)
+        }
+    }
+
+    private fun onChangeImage() {
         navController.navigate(
             NewDonutFragmentDirections.actionNewDonutToSelectImage(donutImage)
         )
@@ -138,5 +149,10 @@ class NewDonutFragment : Fragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putSerializable(DATE, date)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

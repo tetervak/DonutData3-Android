@@ -73,7 +73,7 @@ class DonutListFragment : Fragment() {
         binding.viewModel = donutListViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.fab.setOnClickListener {
+        binding.newDonutFab.setOnClickListener {
             navController.navigate(
                 DonutListFragmentDirections.actionDonutListToNewDonut()
             )
