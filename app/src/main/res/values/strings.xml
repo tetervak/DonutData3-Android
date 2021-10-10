@@ -53,6 +53,7 @@
     <string name="fragment_new_donut">New Donut</string>
     <string name="fragment_edit_donut">Edit Donut</string>
     <string name="fragment_about_dialog">About</string>
+    <string name="fragment_confirmation_dialog">Confirmation</string>
     <string name="fragment_date_dialog">Date</string>
     <string name="fragment_time_dialog">Time</string>
 
