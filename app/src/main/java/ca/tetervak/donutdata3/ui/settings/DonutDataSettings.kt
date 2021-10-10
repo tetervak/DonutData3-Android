@@ -13,6 +13,9 @@ class DonutDataSettings @Inject constructor(@ApplicationContext context: Context
     private val preferences: SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(context)
 
+    val defaultDescription: String
+        get() = preferences.getString("default_description", "")!!
+
     val defaultBrand: Brand
         get() {
             val index = preferences.getString("default_brand_index", "0")!!.toInt()

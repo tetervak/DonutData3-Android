@@ -68,6 +68,7 @@
     <string name="do_not_ask_me_again">Do not ask me again.</string>
 
     <!-- settings fragment -->
+    <string name="alright">Alright</string>
     <string name="donut_brand">Donut brand</string>
     <string name="low_fat_donut">A low fat donut</string>
     <string name="not_a_low_fat_donut">Not a low fat donut</string>
@@ -86,5 +87,6 @@
     <string name="database_demo_app">Database Demo App</string>
     <string name="button_add_donut">Add Donut</string>
     <string name="button_list_donuts">List Donuts</string>
+
 
 </resources>

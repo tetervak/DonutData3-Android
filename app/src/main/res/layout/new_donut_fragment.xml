@@ -107,7 +107,7 @@
                             android:layout_gravity="bottom"
                             android:ems="10"
                             android:importantForAutofill="no"
-                            android:inputType="textPersonName"
+                            android:inputType="text"
                             tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck"
                             tools:text="@string/donut_name" />
                     </TableRow>
@@ -134,7 +134,7 @@
                             android:ems="10"
                             android:gravity="start|top"
                             android:importantForAutofill="no"
-                            android:inputType="textMultiLine"
+                            android:inputType="text"
                             tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck"
                             tools:text="@string/donut_description" />
 

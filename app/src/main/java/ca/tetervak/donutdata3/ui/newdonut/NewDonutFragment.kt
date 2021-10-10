@@ -54,6 +54,7 @@ class NewDonutFragment : Fragment() {
         if (savedInstanceState is Bundle) {
             date = savedInstanceState.getSerializable(DATE) as Date
         } else {
+            binding.description.setText(settings.defaultDescription)
             binding.brandSpinner.setSelection(settings.defaultBrand.ordinal)
             binding.lowFatCheckBox.isChecked = settings.defaultLowFat
         }
