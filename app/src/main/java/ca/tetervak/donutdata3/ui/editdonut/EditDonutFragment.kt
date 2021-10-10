@@ -111,7 +111,6 @@ class EditDonutFragment : Fragment() {
             }
         }
 
-        // User clicked the Cancel button; just exit the dialog without saving the data
         binding.cancelButton.setOnClickListener {
             showList()
         }

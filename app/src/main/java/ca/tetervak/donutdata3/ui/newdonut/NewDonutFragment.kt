@@ -68,7 +68,6 @@ class NewDonutFragment : Fragment() {
             onSave()
         }
 
-        // User clicked the Cancel button
         binding.cancelButton.setOnClickListener {
             showList()
         }
