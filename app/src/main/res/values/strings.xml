@@ -83,6 +83,7 @@
     <string name="database_demo_app">Database Demo App</string>
     <string name="button_add_donut">Add Donut</string>
     <string name="button_list_donuts">List Donuts</string>
+    <string name="donut_brand">Donut Brand</string>
 
 
 </resources>

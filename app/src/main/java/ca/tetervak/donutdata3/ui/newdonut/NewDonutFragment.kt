@@ -16,8 +16,10 @@ import ca.tetervak.donutdata3.domain.Donut
 import ca.tetervak.donutdata3.ui.dialogs.DateDialog
 import ca.tetervak.donutdata3.ui.dialogs.TimeDialog
 import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment.Companion.FILE_NAME
+import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class NewDonutFragment : Fragment() {
@@ -38,6 +40,9 @@ class NewDonutFragment : Fragment() {
     private var donutImage: String = "cinnamon_sugar.png"
     private var date: Date = Date()
 
+    @Inject
+    lateinit var settings: DonutDataSettings
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,6 +57,7 @@ class NewDonutFragment : Fragment() {
 
         binding.fileName = donutImage
         binding.date = date
+        binding.brandSpinner.setSelection(settings.defaultBrand.ordinal)
 
         binding.card.setOnClickListener {
             onChangeImage()

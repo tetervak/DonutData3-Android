@@ -1,5 +1,18 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <PreferenceCategory app:title="Default Values">
+
+        <ListPreference
+            app:defaultValue="0"
+            app:entries="@array/donut_brand_name"
+            app:entryValues="@array/donut_brand_index"
+            app:key="default_brand_index"
+            app:title="@string/donut_brand"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+
     <PreferenceCategory app:title="@string/confirmation_dialogs">
 
         <CheckBoxPreference
