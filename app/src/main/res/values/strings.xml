@@ -31,6 +31,12 @@
     <string name="donut_description">Description</string>
     <string name="donut_rating">Rating</string>
     <string name="button_save">Save</string>
+    <string name="low_fat">Low fat</string>
+    <string name="button_change_image">Change Image</string>
+    <string name="brand">Brand</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="cannot_be_blank">Cannot be blank</string>
 
     <!-- select image fragment -->
     <string name="select_a_donut_image">Select a donut image</string>
@@ -73,10 +79,5 @@
     <string name="database_demo_app">Database Demo App</string>
     <string name="button_add_donut">Add Donut</string>
     <string name="button_list_donuts">List Donuts</string>
-    <string name="low_fat">Low fat</string>
-    <string name="button_change_image">Change Image</string>
-    <string name="brand">Brand</string>
-    <string name="date">Date</string>
-    <string name="time">Time</string>
 
 </resources>

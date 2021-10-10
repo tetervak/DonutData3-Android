@@ -92,19 +92,23 @@ class EditDonutFragment : Fragment() {
         }
 
         binding.saveButton.setOnClickListener {
-            mainViewModel.save(
-                Donut(
-                    id = safeArgs.donutId,
-                    name = binding.name.text.toString(),
-                    description =  binding.description.text.toString(),
-                    rating = binding.ratingBar.rating,
-                    lowFat = binding.lowFatCheckBox.isChecked,
-                    brand = Brand.values()[binding.brandSpinner.selectedItemPosition],
-                    imageFile = donutImage,
-                    date = date
+            if(binding.name.text.toString().isNotBlank()) {
+                mainViewModel.save(
+                    Donut(
+                        id = safeArgs.donutId,
+                        name = binding.name.text.toString(),
+                        description =  binding.description.text.toString(),
+                        rating = binding.ratingBar.rating,
+                        lowFat = binding.lowFatCheckBox.isChecked,
+                        brand = Brand.values()[binding.brandSpinner.selectedItemPosition],
+                        imageFile = donutImage,
+                        date = date
+                    )
                 )
-            )
-            showList()
+                showList()
+            } else {
+                binding.name.error = getString(R.string.cannot_be_blank)
+            }
         }
 
         // User clicked the Cancel button; just exit the dialog without saving the data
