@@ -6,6 +6,7 @@ import ca.tetervak.donutdata3.domain.Donut
 import ca.tetervak.donutdata3.domain.SortBy
 import ca.tetervak.donutdata3.domain.sort
 import ca.tetervak.donutdata3.repositories.DonutRepository
+import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DonutListViewModel @Inject constructor(
-    private val repository: DonutRepository
+    private val repository: DonutRepository,
+    settings: DonutDataSettings
 ) : ViewModel() {
 
     companion object{
@@ -22,7 +24,7 @@ class DonutListViewModel @Inject constructor(
 
     private val donuts: LiveData<List<Donut>> = repository.getAll()
 
-    private val _sortBy = MutableLiveData(SortBy.SORT_BY_ID)
+    private val _sortBy = MutableLiveData(settings.sortBy)
     fun setSorting(sortBy: SortBy){
         _sortBy.value = sortBy
     }
