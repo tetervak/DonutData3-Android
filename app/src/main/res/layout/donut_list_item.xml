@@ -46,11 +46,9 @@
             android:layout_margin="@dimen/small_margin"
             android:text="@{donut.description}"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            app:layout_constraintEnd_toStartOf="@+id/rating"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/thumbnail"
             app:layout_constraintTop_toBottomOf="@+id/name"
-            tools:text="description" />
+            tools:text="Description" />
 
         <TextView
             android:id="@+id/rating"
@@ -79,18 +77,38 @@
 
         <TextView
             android:id="@+id/date_and_time"
+            dateTimeValue="@{donut.date}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/small_margin"
-            android:layout_marginTop="@dimen/small_margin"
-            android:layout_marginBottom="@dimen/small_margin"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textStyle="italic"
-            dateTimeValue="@{donut.date}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/brand_name"
+            app:layout_constraintStart_toEndOf="@+id/bullet"
+            tools:text="date and time" />
+
+        <TextView
+            android:id="@+id/brand_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:layout_marginStart="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/thumbnail"
             app:layout_constraintTop_toBottomOf="@+id/description"
-            tools:text="date and time" />
+            brandName="@{donut.brand}"
+            tools:text="Tim Hortons" />
+
+        <TextView
+            android:id="@+id/bullet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/small_margin"
+            android:text="@string/bullet"
+            app:layout_constraintBottom_toBottomOf="@+id/brand_name"
+            app:layout_constraintStart_toEndOf="@+id/brand_name"
+            app:layout_constraintTop_toTopOf="@+id/brand_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

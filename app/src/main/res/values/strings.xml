@@ -16,6 +16,7 @@
     <!-- donut list item layout -->
     <string name="donut_picture">Picture of donut</string>
     <string name="delete_donut">delete donut</string>
+    <string name="bullet">\u25CB</string>
 
     <!-- donut list fragment layout -->
     <string name="add_donut_info">Add more donut info!</string>
