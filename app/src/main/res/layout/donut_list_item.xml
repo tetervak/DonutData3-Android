@@ -108,5 +108,25 @@
             app:layout_constraintEnd_toStartOf="@+id/deleteButton"
             app:layout_constraintTop_toTopOf="@+id/name" />
 
+        <TextView
+            android:id="@+id/dash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:layout_marginStart="8dp"
+            android:text="@string/dash"
+            app:layout_constraintBaseline_toBaselineOf="@+id/description"
+            app:layout_constraintStart_toEndOf="@+id/description" />
+
+        <TextView
+            android:id="@+id/low_fat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/description"
+            app:layout_constraintStart_toEndOf="@+id/dash"
+            lowFatValue="@{donut.lowFat}"
+            tools:text="Low fat" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
