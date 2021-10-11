@@ -1,4 +1,5 @@
 <resources>
+
     <string-array name="donut_brand_name">
         <item>Tim Hortons</item>
         <item>Krispy Kreme</item>
@@ -11,4 +12,18 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+
+    <string-array name="sorting_label">
+        <item>Sort by Name</item>
+        <item>Sort by Date</item>
+        <item>Sort by Rating</item>
+        <item>Sort by Id</item>
+    </string-array>
+    <string-array name="sorting_index">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
 </resources>

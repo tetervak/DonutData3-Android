@@ -46,4 +46,16 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/donut_list">
+
+        <ListPreference
+            android:defaultValue="3"
+            android:entries="@array/sorting_label"
+            android:entryValues="@array/sorting_index"
+            android:key="sorting_index"
+            android:title="@string/sorting"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

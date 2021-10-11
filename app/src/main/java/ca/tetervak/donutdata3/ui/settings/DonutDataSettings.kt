@@ -2,8 +2,10 @@ package ca.tetervak.donutdata3.ui.settings
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import ca.tetervak.donutdata3.domain.Brand
+import ca.tetervak.donutdata3.domain.SortBy
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -33,4 +35,14 @@ class DonutDataSettings @Inject constructor(@ApplicationContext context: Context
         get() = preferences.getBoolean("confirm_clear", true)
         set(pref) = preferences.edit().putBoolean("confirm_clear", pref).apply()
 
+    var sortBy: SortBy
+        get() {
+            val index = preferences.getString("sorting_index", "3")!!.toInt()
+            return SortBy.values()[index]
+        }
+        set(pref) {
+            preferences.edit {
+                putString("sorting_index", pref.ordinal.toString())
+            }
+        }
 }

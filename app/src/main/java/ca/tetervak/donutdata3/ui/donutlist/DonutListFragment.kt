@@ -124,6 +124,7 @@ class DonutListFragment : Fragment() {
                 }
                 true
             }
+            R.id.menu_sort -> true
             else -> super.onOptionsItemSelected(item)
         }
     }
