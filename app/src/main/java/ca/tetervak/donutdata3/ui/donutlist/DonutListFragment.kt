@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import ca.tetervak.donutdata3.MainViewModel
 import ca.tetervak.donutdata3.R
 import ca.tetervak.donutdata3.databinding.DonutListFragmentBinding
-import ca.tetervak.donutdata3.ui.dialogs.setConfirmationResultListener
+import ca.tetervak.donutdata3.domain.SortBy
+import ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -22,8 +23,8 @@ class DonutListFragment : Fragment() {
 
     companion object{
         private const val TAG = "DonutListFragment"
-        private const val CONFIRM_CLEAR_ALL = "confirmClearAll"
-        private const val CONFIRM_DELETE_ITEM = "confirmDelete"
+        private const val CONFIRM_CLEAR_ALL: Int = 1
+        private const val CONFIRM_DELETE_ITEM: Int = 2
     }
 
     private val donutListViewModel: DonutListViewModel by viewModels()
@@ -79,25 +80,22 @@ class DonutListFragment : Fragment() {
             )
         }
 
-        setConfirmationResultListener(
-            backFragmentId = R.id.nav_donut_list,
-            requestKey = CONFIRM_CLEAR_ALL
-        ) { result ->
-            Log.d(TAG, "onCreateView: clear all is confirmed")
-            donutListViewModel.deleteAll()
-            if (result.doNotAskAgain) {
-                settings.confirmClear = false
-            }
-        }
-
-        setConfirmationResultListener(
-            backFragmentId = R.id.nav_donut_list,
-            requestKey = CONFIRM_DELETE_ITEM
-        ) { result ->
-            Log.d(TAG, "onCreateView: delete item id=${result.itemId} is confirmed")
-            mainViewModel.delete(result.itemId!!)
-            if (result.doNotAskAgain) {
-                settings.confirmDelete = false
+        ConfirmationDialog.setResultListener(this, R.id.nav_donut_list) {
+            when (it?.requestCode) {
+                CONFIRM_CLEAR_ALL -> {
+                    Log.d(TAG, "onCreateView: clear all is confirmed")
+                    donutListViewModel.deleteAll()
+                    if(it.doNotAskAgain){
+                        settings.confirmClear = false
+                    }
+                }
+                CONFIRM_DELETE_ITEM -> {
+                    Log.d(TAG, "onCreateView: delete item id=${it.itemId} is confirmed")
+                    mainViewModel.delete(it.itemId!!)
+                    if(it.doNotAskAgain){
+                        settings.confirmDelete = false
+                    }
+                }
             }
         }
 
@@ -125,7 +123,41 @@ class DonutListFragment : Fragment() {
                 true
             }
             R.id.menu_sort -> true
+            R.id.menu_sort_by_name -> {
+                settings.sortBy = SortBy.SORT_BY_NAME
+                donutListViewModel.setSorting(SortBy.SORT_BY_NAME)
+                true
+            }
+            R.id.menu_sort_by_date -> {
+                settings.sortBy = SortBy.SORT_BY_DATE
+                donutListViewModel.setSorting(SortBy.SORT_BY_DATE)
+                true
+            }
+            R.id.menu_sort_by_rating -> {
+                settings.sortBy = SortBy.SORT_BY_RATING
+                donutListViewModel.setSorting(SortBy.SORT_BY_RATING)
+                true
+            }
+            R.id.menu_sort_by_id -> {
+                settings.sortBy = SortBy.SORT_BY_ID
+                donutListViewModel.setSorting(SortBy.SORT_BY_ID)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        when (settings.sortBy) {
+            SortBy.SORT_BY_NAME ->
+                menu.findItem(R.id.menu_sort_by_name).isChecked = true
+            SortBy.SORT_BY_DATE ->
+                menu.findItem(R.id.menu_sort_by_date).isChecked = true
+            SortBy.SORT_BY_RATING ->
+                menu.findItem(R.id.menu_sort_by_rating).isChecked = true
+            SortBy.SORT_BY_ID ->
+                menu.findItem(R.id.menu_sort_by_id).isChecked = true
         }
     }
 }
