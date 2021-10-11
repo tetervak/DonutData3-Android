@@ -17,6 +17,7 @@
     <string name="donut_picture">Picture of donut</string>
     <string name="delete_donut">delete donut</string>
     <string name="bullet">\u25CB</string>
+    <string name="dash">-</string>
     <string name="not_low_fat">Not low fat</string>
 
     <!-- donut list fragment layout -->
@@ -83,7 +84,7 @@
     <string name="database_demo_app">Database Demo App</string>
     <string name="button_add_donut">Add Donut</string>
     <string name="button_list_donuts">List Donuts</string>
-    <string name="dash">-</string>
+
 
 
 </resources>
