@@ -24,9 +24,7 @@ class DonutListViewModel @Inject constructor(
         Log.d(TAG, "init: the DonutListViewModel object is created")
     }
 
-    // Users of this ViewModel will observe changes to its donuts list to know when
-    // to redisplay those changes
-    val donuts: LiveData<List<Donut>> = repository.getAll()
+    val donutList: LiveData<List<Donut>> = repository.getAll()
 
     fun deleteAll() =
         viewModelScope.launch(Dispatchers.IO) {
