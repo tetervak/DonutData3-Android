@@ -22,7 +22,7 @@
     <PreferenceCategory android:title="Default Values">
 
         <EditTextPreference
-            android:defaultValue="@string/alright"
+            android:defaultValue=""
             android:key="default_description"
             android:selectAllOnFocus="true"
             android:singleLine="true"
