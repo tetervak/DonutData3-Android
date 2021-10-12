@@ -22,27 +22,20 @@ class DonutListViewModel @Inject constructor(
         private const val TAG = "DonutListViewModel"
     }
 
-    private val donuts: LiveData<List<Donut>> = repository.getAll()
-
     private val _sortBy = MutableLiveData(settings.sortBy)
     fun setSorting(sortBy: SortBy){
         _sortBy.value = sortBy
     }
 
-    private val _donutList = MediatorLiveData<List<Donut>>()
-    val donutList: LiveData<List<Donut>> = _donutList
-
-    init{
-        _donutList.addSource(donuts){ list ->
-            _donutList.value = sort(list, _sortBy.value!!)
-        }
-        _donutList.addSource(_sortBy){ sortBy ->
-            val list = _donutList.value
-            if(list is List<Donut>){
-                _donutList.value = sort(list, sortBy)
+    private val donuts: LiveData<List<Donut>> = repository.getAll()
+    val donutList: LiveData<List<Donut>> =
+        _sortBy.switchMap { sortBy ->
+            donuts.map { list ->
+                sort(list, sortBy)
             }
         }
 
+    init{
         Log.d(TAG, "init: the DonutListViewModel object is created")
     }
 
