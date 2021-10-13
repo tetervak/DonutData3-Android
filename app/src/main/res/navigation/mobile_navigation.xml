@@ -122,8 +122,8 @@
         android:name="ca.tetervak.donutdata3.ui.dialogs.DateDialog"
         android:label="@string/fragment_date_dialog">
         <argument
-            android:name="requestCode"
-            app:argType="integer" />
+            android:name="requestKey"
+            app:argType="string" />
         <argument
             android:name="date"
             app:argType="java.util.Date" />
@@ -133,8 +133,8 @@
         android:name="ca.tetervak.donutdata3.ui.dialogs.TimeDialog"
         android:label="@string/fragment_time_dialog" >
         <argument
-            android:name="requestCode"
-            app:argType="integer" />
+            android:name="requestKey"
+            app:argType="string" />
         <argument
             android:name="date"
             app:argType="java.util.Date" />

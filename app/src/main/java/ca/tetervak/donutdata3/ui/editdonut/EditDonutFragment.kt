@@ -32,8 +32,8 @@ class EditDonutFragment : Fragment() {
     companion object{
         private const val TAG = "EditDonutFragment"
         private const val CONFIRM_DELETE_ITEM = "confirmDeleteItem"
-        private const val DATE_REQUEST: Int = 1
-        private const val TIME_REQUEST: Int = 1
+        private const val GET_DATE = "getDate"
+        private const val GET_TIME = "getTime"
         private const val DONUT_IMAGE = "donutImage"
         private const val DATE = "date"
         private const val IS_DONUT_LOADED = "isDonutLoaded"
@@ -125,30 +125,26 @@ class EditDonutFragment : Fragment() {
 
         binding.dateLink.setOnClickListener {
             navController.navigate(
-                EditDonutFragmentDirections.actionEditDonutToDateDialog(DATE_REQUEST, date)
+                EditDonutFragmentDirections.actionEditDonutToDateDialog(GET_DATE, date)
             )
         }
 
         // get date from DateDialog
-        DateDialog.setResultListener(this, R.id.nav_edit_donut){ result->
-            if(result?.requestCode == DATE_REQUEST){
-                date = result.date
-                bindDate(binding.dateLink, date)
-            }
+        DateDialog.setResultListener(this, R.id.nav_edit_donut, GET_DATE) { result ->
+            date = result
+            bindDate(binding.dateLink, date)
         }
 
         binding.timeLink.setOnClickListener {
             navController.navigate(
-                EditDonutFragmentDirections.actionEditDonutToTimeDialog(TIME_REQUEST, date)
+                EditDonutFragmentDirections.actionEditDonutToTimeDialog(GET_TIME, date)
             )
         }
 
         // get time from TimeDialog
-        TimeDialog.setResultListener(this, R.id.nav_edit_donut){ result->
-            if(result?.requestCode == TIME_REQUEST){
-                date = result.date
-                bindTime(binding.timeLink, date)
-            }
+        TimeDialog.setResultListener(this, R.id.nav_edit_donut, GET_TIME) { result ->
+            date = result
+            bindTime(binding.timeLink, date)
         }
 
         ConfirmationDialog.setResultListener(

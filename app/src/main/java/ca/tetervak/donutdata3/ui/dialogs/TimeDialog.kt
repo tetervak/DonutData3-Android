@@ -10,34 +10,30 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import java.io.Serializable
 import java.util.*
 
 
 class TimeDialog : DialogFragment() {
 
-    data class DateResult(
-        val requestCode: Int,
-        val date: Date
-    ) : Serializable
-
     companion object {
-        private const val TIME_RESULT = "time_result"
 
         fun setResultListener(
             fragment: Fragment,
             fragmentId: Int,
-            onResult: (DateResult?) -> Unit
+            requestKey: String,
+            onResult: (Date) -> Unit
         ) {
             val navController = fragment.findNavController()
             val navBackStackEntry = navController.getBackStackEntry(fragmentId)
             val handle = navBackStackEntry.savedStateHandle
             val observer = LifecycleEventObserver { _, event ->
                 if (event == Lifecycle.Event.ON_RESUME
-                    && handle.contains(TIME_RESULT)
+                    && handle.contains(requestKey)
                 ) {
-                    val result: DateResult? = handle.get(TIME_RESULT)
-                    onResult(result)
+                    val date: Date? = handle.get(requestKey)
+                    if(date is Date){
+                        onResult(date)
+                    }
                 }
             }
             navBackStackEntry.lifecycle.addObserver(observer)
@@ -76,7 +72,7 @@ class TimeDialog : DialogFragment() {
 
     private fun setTimeResult(date: Date) {
         val savedStateHandle = navController.previousBackStackEntry?.savedStateHandle
-        savedStateHandle?.set(TIME_RESULT, DateResult(safeArgs.requestCode, date))
+        savedStateHandle?.set(safeArgs.requestKey, date)
     }
 
 }

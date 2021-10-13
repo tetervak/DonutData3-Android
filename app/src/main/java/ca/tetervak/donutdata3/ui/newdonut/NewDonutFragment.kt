@@ -25,8 +25,8 @@ import javax.inject.Inject
 class NewDonutFragment : Fragment() {
 
     companion object{
-        private const val DATE_REQUEST: Int = 1
-        private const val TIME_REQUEST: Int = 1
+        private const val GET_DATE = "getDate"
+        private const val GET_TIME = "getTime"
         private const val DATE = "date"
     }
 
@@ -93,30 +93,26 @@ class NewDonutFragment : Fragment() {
 
         binding.dateLink.setOnClickListener {
             navController.navigate(
-                NewDonutFragmentDirections.actionNewDonutToDateDialog(DATE_REQUEST, date)
+                NewDonutFragmentDirections.actionNewDonutToDateDialog(GET_DATE, date)
             )
         }
 
         // get date from DateDialog
-        DateDialog.setResultListener(this, R.id.nav_new_donut){ result->
-            if(result?.requestCode == DATE_REQUEST){
-                date = result.date
-                binding.date = date
-            }
+        DateDialog.setResultListener(this, R.id.nav_new_donut, GET_DATE) { result ->
+            date = result
+            binding.date = date
         }
 
         binding.timeLink.setOnClickListener {
             navController.navigate(
-                NewDonutFragmentDirections.actionNewDonutToTimeDialog(TIME_REQUEST, date)
+                NewDonutFragmentDirections.actionNewDonutToTimeDialog(GET_TIME, date)
             )
         }
 
         // get time from TimeDialog
-        TimeDialog.setResultListener(this, R.id.nav_new_donut){ result->
-            if(result?.requestCode == TIME_REQUEST){
-                date = result.date
-                binding.date = date
-            }
+        TimeDialog.setResultListener(this, R.id.nav_new_donut, GET_TIME) { result ->
+            date = result
+            binding.date = date
         }
 
         return binding.root
