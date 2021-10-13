@@ -44,12 +44,12 @@ class DateDialog : DialogFragment() {
         }
 
         fun showDateDialog(
-            parentFragment: Fragment,
+            backFragment: Fragment,
             requestKey: String,
             date: Date
         ) {
             showDateDialog(
-                parentFragment.parentFragmentManager,
+                backFragment.parentFragmentManager,
                 requestKey,
                 date)
         }
@@ -69,13 +69,13 @@ class DateDialog : DialogFragment() {
         }
 
         fun setDateResultListener(
-            parentFragment: Fragment,
+            backFragment: Fragment,
             requestKey: String,
             onResult: (Date) -> Unit
         ) {
             setDateResultListener(
-                parentFragment.parentFragmentManager,
-                parentFragment.viewLifecycleOwner,
+                backFragment.parentFragmentManager,
+                backFragment.viewLifecycleOwner,
                 requestKey,
                 onResult
             )

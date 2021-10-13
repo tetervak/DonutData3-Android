@@ -75,14 +75,14 @@ class ConfirmationDialog : DialogFragment() {
         }
 
         fun showConfirmationDialog (
-            parentFragment: Fragment,
+            backFragment: Fragment,
             requestKey: String,
             title: String,
             message: String,
             itemId: String?
         ){
             showConfirmationDialog(
-                parentFragment.parentFragmentManager,
+                backFragment.parentFragmentManager,
                 requestKey,
                 title,
                 message,
@@ -114,13 +114,13 @@ class ConfirmationDialog : DialogFragment() {
         }
 
         fun setConfirmationResultListener(
-            parentFragment: Fragment,
+            backFragment: Fragment,
             requestKey: String,
             onResult: (ConfirmationResult) -> Unit
         ){
             setConfirmationResultListener(
-                parentFragment.parentFragmentManager,
-                parentFragment.viewLifecycleOwner,
+                backFragment.parentFragmentManager,
+                backFragment.viewLifecycleOwner,
                 requestKey,
                 onResult
             )

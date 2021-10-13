@@ -38,12 +38,12 @@ class InfoDialog : DialogFragment() {
         }
 
         fun showInfoDialog(
-            fragment: Fragment,
+            backFragment: Fragment,
             title: String,
             message: String
         ) {
             showInfoDialog(
-                fragment.parentFragmentManager,
+                backFragment.parentFragmentManager,
                 title,
                 message)
         }

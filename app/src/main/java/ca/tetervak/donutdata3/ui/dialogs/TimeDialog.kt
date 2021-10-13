@@ -44,12 +44,12 @@ class TimeDialog : DialogFragment() {
         }
 
         fun showTimeDialog(
-            parentFragment: Fragment,
+            backFragment: Fragment,
             requestKey: String,
             date: Date
         ) {
             showTimeDialog(
-                parentFragment.parentFragmentManager,
+                backFragment.parentFragmentManager,
                 requestKey,
                 date)
         }
@@ -69,13 +69,13 @@ class TimeDialog : DialogFragment() {
         }
 
         fun setTimeResultListener(
-            parentFragment: Fragment,
+            backFragment: Fragment,
             requestKey: String,
             onResult: (Date) -> Unit
         ) {
             setTimeResultListener(
-                parentFragment.parentFragmentManager,
-                parentFragment.viewLifecycleOwner,
+                backFragment.parentFragmentManager,
+                backFragment.viewLifecycleOwner,
                 requestKey,
                 onResult
             )
