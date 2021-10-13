@@ -16,7 +16,7 @@ class DateDialog : DialogFragment() {
 
     companion object {
 
-        fun setResultListener(
+        fun setDateResultListener(
             fragment: Fragment,
             fragmentId: Int,
             requestKey: String,

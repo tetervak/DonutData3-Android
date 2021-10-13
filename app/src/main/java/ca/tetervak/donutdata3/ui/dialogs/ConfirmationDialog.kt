@@ -25,7 +25,7 @@ class ConfirmationDialog : DialogFragment() {
     companion object {
         private const val TAG = "ConfirmationDialog"
 
-        fun setResultListener(
+        fun setConfirmationResultListener(
             fragment: Fragment,
             fragmentId: Int,
             requestKey: String,

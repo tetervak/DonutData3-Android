@@ -17,7 +17,7 @@ class TimeDialog : DialogFragment() {
 
     companion object {
 
-        fun setResultListener(
+        fun setTimeResultListener(
             fragment: Fragment,
             fragmentId: Int,
             requestKey: String,
