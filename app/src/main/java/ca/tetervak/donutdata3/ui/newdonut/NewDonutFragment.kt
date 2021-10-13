@@ -14,7 +14,7 @@ import ca.tetervak.donutdata3.databinding.NewDonutFragmentBinding
 import ca.tetervak.donutdata3.domain.Brand
 import ca.tetervak.donutdata3.domain.Donut
 import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.showDateDialog
-import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.setDateResultLister
+import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.setDateResultListener
 import ca.tetervak.donutdata3.ui.dialogs.TimeDialog
 import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment.Companion.FILE_NAME
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
@@ -96,7 +96,7 @@ class NewDonutFragment : Fragment() {
             showDateDialog(this, GET_DATE, date)
         }
 
-        setDateResultLister(this, GET_DATE){
+        setDateResultListener(this, GET_DATE){
             date = it
             binding.date = date
         }

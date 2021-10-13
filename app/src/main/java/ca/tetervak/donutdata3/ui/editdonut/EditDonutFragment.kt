@@ -1,7 +1,6 @@
 package ca.tetervak.donutdata3.ui.editdonut
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -18,11 +17,9 @@ import ca.tetervak.donutdata3.ui.binding.bindDate
 import ca.tetervak.donutdata3.ui.binding.bindDonutImage
 import ca.tetervak.donutdata3.ui.binding.bindTime
 import ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog
-import ca.tetervak.donutdata3.ui.dialogs.DateDialog
-import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.setDateResultLister
+import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.setDateResultListener
 import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.showDateDialog
 import ca.tetervak.donutdata3.ui.dialogs.TimeDialog
-import ca.tetervak.donutdata3.ui.newdonut.NewDonutFragment
 import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
@@ -131,7 +128,7 @@ class EditDonutFragment : Fragment() {
         }
 
         // get date from DateDialog
-        setDateResultLister(this, GET_DATE) {
+        setDateResultListener(this, GET_DATE) {
             date = it
             bindDate(binding.dateLink, date)
         }
