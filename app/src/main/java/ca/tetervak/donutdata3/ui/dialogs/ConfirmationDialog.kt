@@ -18,30 +18,31 @@ import java.io.Serializable
 class ConfirmationDialog : DialogFragment() {
 
     data class ConfirmationResult(
-        val requestCode: Int,
         val itemId: String?,
         val doNotAskAgain: Boolean = false
     ) : Serializable
 
     companion object {
         private const val TAG = "ConfirmationDialog"
-        private const val CONFIRMATION_RESULT = "confirmation_result"
 
         fun setResultListener(
             fragment: Fragment,
             fragmentId: Int,
-            onResult: (ConfirmationResult?) -> Unit
+            requestKey: String,
+            onResult: (ConfirmationResult) -> Unit
         ) {
             val navController = fragment.findNavController()
             val navBackStackEntry = navController.getBackStackEntry(fragmentId)
             val handle = navBackStackEntry.savedStateHandle
             val observer = LifecycleEventObserver { _, event ->
                 if (event == Lifecycle.Event.ON_RESUME
-                    && handle.contains(CONFIRMATION_RESULT)
+                    && handle.contains(requestKey)
                 ) {
-                    val result: ConfirmationResult? = handle.get(CONFIRMATION_RESULT)
-                    onResult(result)
-                    handle.remove<ConfirmationResult>(CONFIRMATION_RESULT)
+                    val result: ConfirmationResult? = handle.get(requestKey)
+                    if(result is ConfirmationResult){
+                        onResult(result)
+                        handle.remove<ConfirmationResult>(requestKey)
+                    }
                     Log.d(TAG, "setResultListener: onResult is called")
                 }
             }
@@ -79,7 +80,7 @@ class ConfirmationDialog : DialogFragment() {
     private fun confirmed(doNotAskAgain: Boolean) {
         val savedStateHandle = navController.previousBackStackEntry?.savedStateHandle
         savedStateHandle?.set(
-            CONFIRMATION_RESULT, ConfirmationResult(safeArgs.requestCode, safeArgs.itemId, doNotAskAgain)
+            safeArgs.requestKey, ConfirmationResult(safeArgs.itemId, doNotAskAgain)
         )
     }
 

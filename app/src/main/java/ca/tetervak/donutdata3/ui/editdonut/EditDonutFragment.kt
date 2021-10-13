@@ -31,7 +31,7 @@ class EditDonutFragment : Fragment() {
 
     companion object{
         private const val TAG = "EditDonutFragment"
-        private const val CONFIRM_DELETE_ITEM: Int = 2
+        private const val CONFIRM_DELETE_ITEM = "confirmDeleteItem"
         private const val DATE_REQUEST: Int = 1
         private const val TIME_REQUEST: Int = 1
         private const val DONUT_IMAGE = "donutImage"
@@ -151,17 +151,13 @@ class EditDonutFragment : Fragment() {
             }
         }
 
-        ConfirmationDialog.setResultListener(this, R.id.nav_edit_donut) { result ->
-            when (result?.requestCode) {
-                CONFIRM_DELETE_ITEM -> {
-                    Log.d(TAG, "onCreateView: delete item id=${result.itemId} is confirmed")
-                    mainViewModel.delete(result.itemId!!)
-                    if(result.doNotAskAgain){
-                        settings.confirmDelete = false
-                    }
-                    showList()
-                }
+        ConfirmationDialog.setResultListener(
+            this, R.id.nav_edit_donut, CONFIRM_DELETE_ITEM) { result ->
+            mainViewModel.delete(result.itemId!!)
+            if(result.doNotAskAgain){
+                settings.confirmDelete = false
             }
+            showList()
         }
 
         return binding.root

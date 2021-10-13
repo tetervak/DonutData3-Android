@@ -22,8 +22,8 @@ class DonutListFragment : Fragment() {
 
     companion object{
         private const val TAG = "DonutListFragment"
-        private const val CONFIRM_CLEAR_ALL: Int = 1
-        private const val CONFIRM_DELETE_ITEM: Int = 2
+        private const val CONFIRM_CLEAR_ALL = "confirmClearAll"
+        private const val CONFIRM_DELETE_ITEM = "confirmDelete"
     }
 
     private val donutListViewModel: DonutListViewModel by viewModels()
@@ -79,22 +79,23 @@ class DonutListFragment : Fragment() {
             )
         }
 
-        ConfirmationDialog.setResultListener(this, R.id.nav_donut_list) {
-            when (it?.requestCode) {
-                CONFIRM_CLEAR_ALL -> {
-                    Log.d(TAG, "onCreateView: clear all is confirmed")
-                    donutListViewModel.deleteAll()
-                    if(it.doNotAskAgain){
-                        settings.confirmClear = false
-                    }
-                }
-                CONFIRM_DELETE_ITEM -> {
-                    Log.d(TAG, "onCreateView: delete item id=${it.itemId} is confirmed")
-                    mainViewModel.delete(it.itemId!!)
-                    if(it.doNotAskAgain){
-                        settings.confirmDelete = false
-                    }
-                }
+        ConfirmationDialog.setResultListener(
+            this, R.id.nav_donut_list, CONFIRM_CLEAR_ALL
+        ) { result ->
+            Log.d(TAG, "onCreateView: clear all is confirmed")
+            donutListViewModel.deleteAll()
+            if (result.doNotAskAgain) {
+                settings.confirmClear = false
+            }
+        }
+
+        ConfirmationDialog.setResultListener(
+            this, R.id.nav_donut_list, CONFIRM_DELETE_ITEM
+        ) { result ->
+            Log.d(TAG, "onCreateView: delete item id=${result.itemId} is confirmed")
+            mainViewModel.delete(result.itemId!!)
+            if (result.doNotAskAgain) {
+                settings.confirmDelete = false
             }
         }
 

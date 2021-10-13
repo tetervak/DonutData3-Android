@@ -51,8 +51,8 @@
             android:name="message"
             app:argType="string" />
         <argument
-            android:name="requestCode"
-            app:argType="integer" />
+            android:name="requestKey"
+            app:argType="string" />
         <argument
             android:name="itemId"
             app:argType="string"
