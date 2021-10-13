@@ -13,9 +13,9 @@ import ca.tetervak.donutdata3.R
 import ca.tetervak.donutdata3.databinding.NewDonutFragmentBinding
 import ca.tetervak.donutdata3.domain.Brand
 import ca.tetervak.donutdata3.domain.Donut
-import ca.tetervak.donutdata3.ui.dialogs.DateDialog
-import ca.tetervak.donutdata3.ui.dialogs.TimeDialog
-import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment.Companion.FILE_NAME
+import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.setDateResultListener
+import ca.tetervak.donutdata3.ui.dialogs.TimeDialog.Companion.setTimeResultListener
+import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment.Companion.setSelectImageResultListener
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -24,7 +24,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class NewDonutFragment : Fragment() {
 
-    companion object{
+    companion object {
+        private const val GET_IMAGE = "getImage"
         private const val GET_DATE = "getDate"
         private const val GET_TIME = "getTime"
         private const val DATE = "date"
@@ -82,14 +83,10 @@ class NewDonutFragment : Fragment() {
         }
 
         // get donut file name from SelectImageFragment
-        navController
-            .currentBackStackEntry
-            ?.savedStateHandle
-            ?.getLiveData<String>(FILE_NAME)
-            ?.observe(viewLifecycleOwner) { fileName ->
-                donutImage = fileName
-                binding.fileName = donutImage
-            }
+        setSelectImageResultListener(this, GET_IMAGE) { fileName ->
+            donutImage = fileName
+            binding.fileName = donutImage
+        }
 
         binding.dateLink.setOnClickListener {
             navController.navigate(
@@ -98,7 +95,7 @@ class NewDonutFragment : Fragment() {
         }
 
         // get date from DateDialog
-        DateDialog.setResultListener(this, R.id.nav_new_donut, GET_DATE) { result ->
+        setDateResultListener(this, R.id.nav_new_donut, GET_DATE) { result ->
             date = result
             binding.date = date
         }
@@ -110,7 +107,7 @@ class NewDonutFragment : Fragment() {
         }
 
         // get time from TimeDialog
-        TimeDialog.setResultListener(this, R.id.nav_new_donut, GET_TIME) { result ->
+        setTimeResultListener(this, R.id.nav_new_donut, GET_TIME) { result ->
             date = result
             binding.date = date
         }
@@ -140,7 +137,7 @@ class NewDonutFragment : Fragment() {
 
     private fun onChangeImage() {
         navController.navigate(
-            NewDonutFragmentDirections.actionNewDonutToSelectImage(donutImage)
+            NewDonutFragmentDirections.actionNewDonutToSelectImage(GET_IMAGE, donutImage)
         )
     }
 
