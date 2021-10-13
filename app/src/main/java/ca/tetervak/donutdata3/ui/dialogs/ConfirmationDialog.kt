@@ -63,7 +63,7 @@ class ConfirmationDialog : DialogFragment() {
             requestKey: String,
             title: String,
             message: String,
-            itemId: String?
+            itemId: String? = null
         ){
             showConfirmationDialog(
                 activity.supportFragmentManager,
@@ -79,7 +79,7 @@ class ConfirmationDialog : DialogFragment() {
             requestKey: String,
             title: String,
             message: String,
-            itemId: String?
+            itemId: String? = null
         ){
             showConfirmationDialog(
                 backFragment.parentFragmentManager,

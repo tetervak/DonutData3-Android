@@ -13,6 +13,7 @@ import ca.tetervak.donutdata3.MainViewModel
 import ca.tetervak.donutdata3.R
 import ca.tetervak.donutdata3.databinding.DonutListFragmentBinding
 import ca.tetervak.donutdata3.domain.SortBy
+import ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog.Companion.showConfirmationDialog
 import ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog.Companion.setConfirmationResultListener
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,12 +59,13 @@ class DonutListFragment : Fragment() {
             },
             onDelete = { donut ->
                 if(settings.confirmDelete){
-                    val action = DonutListFragmentDirections.actionDonutListToConfirmation(
-                        getString(R.string.confirm_delete_message),
+                    showConfirmationDialog(
+                        this,
                         CONFIRM_DELETE_ITEM,
+                        getString(R.string.app_name),
+                        getString(R.string.confirm_delete_message),
                         donut.id
                     )
-                    navController.navigate(action)
                 }else{
                     mainViewModel.delete(donut)
                 }
@@ -112,12 +114,12 @@ class DonutListFragment : Fragment() {
         return when (item.itemId) {
             R.id.action_clear -> {
                 if(settings.confirmClear){
-                    val action = DonutListFragmentDirections.actionDonutListToConfirmation(
-                        getString(R.string.confirm_clear_message),
+                    showConfirmationDialog(
+                        this,
                         CONFIRM_CLEAR_ALL,
-                        null
+                        getString(R.string.app_name),
+                        getString(R.string.confirm_clear_message)
                     )
-                    navController.navigate(action)
                 }else{
                     donutListViewModel.deleteAll()
                 }

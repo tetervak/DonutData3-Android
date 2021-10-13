@@ -22,7 +22,7 @@ import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.setDateResultListe
 import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.showDateDialog
 import ca.tetervak.donutdata3.ui.dialogs.TimeDialog.Companion.setTimeResultListener
 import ca.tetervak.donutdata3.ui.dialogs.TimeDialog.Companion.showTimeDialog
-import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment
+import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment.Companion.setSelectImageResultListener
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -34,6 +34,7 @@ class EditDonutFragment : Fragment() {
     companion object {
         private const val TAG = "EditDonutFragment"
         private const val CONFIRM_DELETE_ITEM = "confirmDeleteItem"
+        private const val GET_IMAGE = "getImage"
         private const val GET_DATE = "getDate"
         private const val GET_TIME = "getTime"
         private const val DONUT_IMAGE = "donutImage"
@@ -116,14 +117,10 @@ class EditDonutFragment : Fragment() {
         }
 
         // get donut file name from SelectImageFragment
-        navController
-            .currentBackStackEntry
-            ?.savedStateHandle
-            ?.getLiveData<String>(SelectImageFragment.FILE_NAME)
-            ?.observe(viewLifecycleOwner) { fileName ->
-                donutImage = fileName
-                bindDonutImage(binding.donutImage, donutImage)
-            }
+        setSelectImageResultListener(this, GET_IMAGE) { fileName ->
+            donutImage = fileName
+            bindDonutImage(binding.donutImage, donutImage)
+        }
 
         binding.dateLink.setOnClickListener {
             showDateDialog(this, GET_DATE, date)
@@ -178,7 +175,7 @@ class EditDonutFragment : Fragment() {
 
     private fun onChangeImage() {
         navController.navigate(
-            EditDonutFragmentDirections.actionEditDonutToSelectImage(donutImage)
+            EditDonutFragmentDirections.actionEditDonutToSelectImage(GET_IMAGE, donutImage)
         )
     }
 
