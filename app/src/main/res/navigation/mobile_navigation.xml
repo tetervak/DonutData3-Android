@@ -38,11 +38,6 @@
     </fragment>
 
     <dialog
-        android:id="@+id/nav_about"
-        android:name="ca.tetervak.donutdata3.ui.dialogs.AboutDialog"
-        android:label="@string/fragment_about_dialog" />
-    <action android:id="@+id/action_global_about" app:destination="@id/nav_about" />
-    <dialog
         android:id="@+id/nav_confirmation"
         android:name="ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog"
         android:label="@string/fragment_confirmation_dialog"
@@ -93,9 +88,6 @@
             android:id="@+id/action_new_donut_to_select_image"
             app:destination="@id/nav_select_image" />
         <action
-            android:id="@+id/action_new_donut_to_date_dialog"
-            app:destination="@id/nav_date_dialog" />
-        <action
             android:id="@+id/action_new_donut_to_time_dialog"
             app:destination="@id/nav_time_dialog" />
     </fragment>
@@ -111,26 +103,12 @@
             android:id="@+id/action_edit_donut_to_select_image"
             app:destination="@id/nav_select_image" />
         <action
-            android:id="@+id/action_edit_donut_to_date_dialog"
-            app:destination="@id/nav_date_dialog" />
-        <action
             android:id="@+id/action_edit_donut_to_time_dialog"
             app:destination="@id/nav_time_dialog" />
         <action
             android:id="@+id/action_edit_donut_to_confirmation"
             app:destination="@id/nav_confirmation" />
     </fragment>
-    <dialog
-        android:id="@+id/nav_date_dialog"
-        android:name="ca.tetervak.donutdata3.ui.dialogs.DateDialog"
-        android:label="@string/fragment_date_dialog">
-        <argument
-            android:name="requestKey"
-            app:argType="string" />
-        <argument
-            android:name="date"
-            app:argType="java.util.Date" />
-    </dialog>
     <dialog
         android:id="@+id/nav_time_dialog"
         android:name="ca.tetervak.donutdata3.ui.dialogs.TimeDialog"

@@ -1,6 +1,7 @@
 package ca.tetervak.donutdata3.ui.editdonut
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -16,10 +17,13 @@ import ca.tetervak.donutdata3.domain.Donut
 import ca.tetervak.donutdata3.ui.binding.bindDate
 import ca.tetervak.donutdata3.ui.binding.bindDonutImage
 import ca.tetervak.donutdata3.ui.binding.bindTime
-import ca.tetervak.donutdata3.ui.dialogs.setConfirmationResultListener
-import ca.tetervak.donutdata3.ui.dialogs.setDateResultListener
-import ca.tetervak.donutdata3.ui.dialogs.setTimeResultListener
-import ca.tetervak.donutdata3.ui.selectimage.setSelectImageResultListener
+import ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog
+import ca.tetervak.donutdata3.ui.dialogs.DateDialog
+import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.setDateResultLister
+import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.showDateDialog
+import ca.tetervak.donutdata3.ui.dialogs.TimeDialog
+import ca.tetervak.donutdata3.ui.newdonut.NewDonutFragment
+import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -28,11 +32,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class EditDonutFragment : Fragment() {
 
-    companion object {
+    companion object{
         private const val TAG = "EditDonutFragment"
-        private const val DEFAULT_IMAGE = "cinnamon_sugar.png"
         private const val CONFIRM_DELETE_ITEM = "confirmDeleteItem"
-        private const val GET_IMAGE = "getImage"
         private const val GET_DATE = "getDate"
         private const val GET_TIME = "getTime"
         private const val DONUT_IMAGE = "donutImage"
@@ -49,7 +51,7 @@ class EditDonutFragment : Fragment() {
     private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var navController: NavController
 
-    private var donutImage: String = DEFAULT_IMAGE
+    private var donutImage: String = "cinnamon_sugar.png"
     private var date: Date = Date()
 
     private var isDonutLoaded: Boolean = false
@@ -72,7 +74,7 @@ class EditDonutFragment : Fragment() {
         navController = findNavController()
 
         if (savedInstanceState is Bundle) {
-            donutImage = savedInstanceState.getString(DONUT_IMAGE, DEFAULT_IMAGE)
+            donutImage = savedInstanceState.getString(DONUT_IMAGE,"cinnamon_sugar.png")
             date = savedInstanceState.getSerializable(DATE) as Date
             isDonutLoaded = savedInstanceState.getBoolean(IS_DONUT_LOADED, false)
         }
@@ -82,7 +84,7 @@ class EditDonutFragment : Fragment() {
         bindDate(binding.dateLink, date)
         bindTime(binding.timeLink, date)
 
-        if (!isDonutLoaded) {
+        if(!isDonutLoaded) {
             editDonutViewModel.donut.observe(viewLifecycleOwner) { donut ->
                 binding.name.setText(donut.name)
                 binding.description.setText(donut.description)
@@ -115,26 +117,22 @@ class EditDonutFragment : Fragment() {
         }
 
         // get donut file name from SelectImageFragment
-        setSelectImageResultListener(
-            backFragmentId = R.id.nav_edit_donut,
-            requestKey = GET_IMAGE
-        ) { fileName ->
-            donutImage = fileName
-            bindDonutImage(binding.donutImage, donutImage)
-        }
+        navController
+            .currentBackStackEntry
+            ?.savedStateHandle
+            ?.getLiveData<String>(SelectImageFragment.FILE_NAME)
+            ?.observe(viewLifecycleOwner) { fileName ->
+                donutImage = fileName
+                bindDonutImage(binding.donutImage, donutImage)
+            }
 
         binding.dateLink.setOnClickListener {
-            navController.navigate(
-                EditDonutFragmentDirections.actionEditDonutToDateDialog(GET_DATE, date)
-            )
+            showDateDialog(this, GET_DATE, date)
         }
 
         // get date from DateDialog
-        setDateResultListener(
-            backFragmentId = R.id.nav_edit_donut,
-            requestKey = GET_DATE
-        ) { result ->
-            date = result
+        setDateResultLister(this, GET_DATE) {
+            date = it
             bindDate(binding.dateLink, date)
         }
 
@@ -145,20 +143,15 @@ class EditDonutFragment : Fragment() {
         }
 
         // get time from TimeDialog
-        setTimeResultListener(
-            backFragmentId = R.id.nav_edit_donut,
-            requestKey = GET_TIME
-        ) { result ->
+        TimeDialog.setResultListener(this, R.id.nav_edit_donut, GET_TIME) { result ->
             date = result
             bindTime(binding.timeLink, date)
         }
 
-        setConfirmationResultListener(
-            backFragmentId = R.id.nav_edit_donut,
-            requestKey = CONFIRM_DELETE_ITEM
-        ) { result ->
+        ConfirmationDialog.setResultListener(
+            this, R.id.nav_edit_donut, CONFIRM_DELETE_ITEM) { result ->
             mainViewModel.delete(result.itemId!!)
-            if (result.doNotAskAgain) {
+            if(result.doNotAskAgain){
                 settings.confirmDelete = false
             }
             showList()
@@ -189,7 +182,7 @@ class EditDonutFragment : Fragment() {
 
     private fun onChangeImage() {
         navController.navigate(
-            EditDonutFragmentDirections.actionEditDonutToSelectImage(GET_IMAGE, donutImage)
+            EditDonutFragmentDirections.actionEditDonutToSelectImage(donutImage)
         )
     }
 
