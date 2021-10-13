@@ -26,13 +26,13 @@ class ConfirmationDialog : DialogFragment() {
         private const val TAG = "ConfirmationDialog"
 
         fun setConfirmationResultListener(
-            fragment: Fragment,
-            fragmentId: Int,
+            backFragment: Fragment,
+            backFragmentId: Int,
             requestKey: String,
             onResult: (ConfirmationResult) -> Unit
         ) {
-            val navController = fragment.findNavController()
-            val navBackStackEntry = navController.getBackStackEntry(fragmentId)
+            val navController = backFragment.findNavController()
+            val navBackStackEntry = navController.getBackStackEntry(backFragmentId)
             val handle = navBackStackEntry.savedStateHandle
             val observer = LifecycleEventObserver { _, event ->
                 if (event == Lifecycle.Event.ON_RESUME
@@ -47,7 +47,7 @@ class ConfirmationDialog : DialogFragment() {
                 }
             }
             navBackStackEntry.lifecycle.addObserver(observer)
-            fragment.viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            backFragment.viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
                 if (event == Lifecycle.Event.ON_DESTROY) {
                     Log.d(TAG, "setResultListener: the fragment view is destroyed")
                     navBackStackEntry.lifecycle.removeObserver(observer)

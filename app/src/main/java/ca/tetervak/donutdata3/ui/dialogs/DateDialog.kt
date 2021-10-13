@@ -17,13 +17,13 @@ class DateDialog : DialogFragment() {
     companion object {
 
         fun setDateResultListener(
-            fragment: Fragment,
-            fragmentId: Int,
+            backFragment: Fragment,
+            backFragmentId: Int,
             requestKey: String,
             onResult: (Date) -> Unit
         ) {
-            val navController = fragment.findNavController()
-            val navBackStackEntry = navController.getBackStackEntry(fragmentId)
+            val navController = backFragment.findNavController()
+            val navBackStackEntry = navController.getBackStackEntry(backFragmentId)
             val handle = navBackStackEntry.savedStateHandle
             val observer = LifecycleEventObserver { _, event ->
                 if (event == Lifecycle.Event.ON_RESUME
@@ -36,7 +36,7 @@ class DateDialog : DialogFragment() {
                 }
             }
             navBackStackEntry.lifecycle.addObserver(observer)
-            fragment.viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            backFragment.viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
                 if (event == Lifecycle.Event.ON_DESTROY) {
                     navBackStackEntry.lifecycle.removeObserver(observer)
                 }
