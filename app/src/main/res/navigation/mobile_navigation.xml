@@ -64,6 +64,9 @@
         android:label="@string/fragment_select_image"
         tools:layout="@layout/select_image_fragment">
         <argument
+            android:name="requestKey"
+            app:argType="string" />
+        <argument
             android:name="fileName"
             app:argType="string" />
     </fragment>
