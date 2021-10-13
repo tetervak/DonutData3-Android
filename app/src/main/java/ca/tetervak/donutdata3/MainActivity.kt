@@ -52,10 +52,7 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.onNavDestinationSelected(item, navController) ||
                 when (item.itemId) {
                     R.id.action_about -> {
-                        showInfoDialog(
-                            supportFragmentManager,
-                            getString(R.string.app_name),
-                            getString(R.string.author))
+                        showInfoDialog(this, getString(R.string.app_name), getString(R.string.author))
                         true
                     }
                     else -> super.onOptionsItemSelected(item)
