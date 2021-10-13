@@ -16,6 +16,8 @@ import ca.tetervak.donutdata3.domain.Donut
 import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.showDateDialog
 import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.setDateResultListener
 import ca.tetervak.donutdata3.ui.dialogs.TimeDialog
+import ca.tetervak.donutdata3.ui.dialogs.TimeDialog.Companion.setTimeResultListener
+import ca.tetervak.donutdata3.ui.dialogs.TimeDialog.Companion.showTimeDialog
 import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment.Companion.FILE_NAME
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
@@ -102,14 +104,12 @@ class NewDonutFragment : Fragment() {
         }
 
         binding.timeLink.setOnClickListener {
-            navController.navigate(
-                NewDonutFragmentDirections.actionNewDonutToTimeDialog(GET_TIME, date)
-            )
+            showTimeDialog(this, GET_TIME, date)
         }
 
         // get time from TimeDialog
-        TimeDialog.setResultListener(this, R.id.nav_new_donut, GET_TIME) { result ->
-            date = result
+        setTimeResultListener(this, GET_TIME) {
+            date = it
             binding.date = date
         }
 

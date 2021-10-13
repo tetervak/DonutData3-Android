@@ -3,35 +3,100 @@ package ca.tetervak.donutdata3.ui.dialogs
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.LifecycleOwner
 import java.util.*
-
-fun Fragment.setTimeResultListener(
-    backFragmentId: Int,
-    requestKey: String,
-    onResult: (Date) -> Unit
-) = setDialogResultListener(
-    backFragmentId,
-    requestKey,
-    onResult
-)
 
 class TimeDialog : DialogFragment() {
 
-    private val safeArgs: TimeDialogArgs by navArgs()
+    companion object {
+        private const val TAG = "TimeDialog"
+        private const val REQUEST_KEY = "requestKey"
+        private const val DATE = "date"
 
-    private lateinit var navController: NavController
+        fun showTimeDialog(
+            activity: AppCompatActivity,
+            requestKey: String,
+            date: Date
+        ) {
+            showTimeDialog(activity.supportFragmentManager, requestKey, date)
+        }
+
+        fun showTimeDialog(
+            parentFragment: Fragment,
+            requestKey: String,
+            date: Date
+        ) {
+            showTimeDialog(parentFragment.childFragmentManager, requestKey, date)
+        }
+
+        private fun showTimeDialog(
+            fragmentManager: FragmentManager,
+            requestKey: String,
+            date: Date
+        ) {
+            newInstance(requestKey, date).show(fragmentManager, TAG)
+        }
+
+        private fun newInstance(requestKey: String, date: Date): TimeDialog {
+            return TimeDialog().apply {
+                arguments = bundleOf(REQUEST_KEY to requestKey, DATE to date)
+            }
+        }
+
+        fun setTimeResultListener(
+            parentFragment: Fragment,
+            requestKey: String,
+            onResult: (Date) -> Unit
+        ) {
+            setTimeResultListener(
+                parentFragment.childFragmentManager,
+                parentFragment.viewLifecycleOwner,
+                requestKey,
+                onResult
+            )
+        }
+
+        fun setTimeResultListener(
+            activity: AppCompatActivity,
+            requestKey: String,
+            onResult: (Date) -> Unit
+        ) {
+            setTimeResultListener(
+                activity.supportFragmentManager,
+                activity,
+                requestKey,
+                onResult
+            )
+        }
+
+        private fun setTimeResultListener(
+            fragmentManager: FragmentManager,
+            lifecycleOwner: LifecycleOwner,
+            requestKey: String,
+            onResult: (Date) -> Unit
+        ) {
+            fragmentManager.setFragmentResultListener(
+                requestKey,
+                lifecycleOwner
+            ) { _, bundle ->
+                onResult(bundle.getSerializable(DATE) as Date)
+            }
+        }
+    }
+
+    private lateinit var requestKey: String
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        navController = findNavController()
+        requestKey = requireArguments().getString(REQUEST_KEY)!!
 
         val calendar: Calendar = Calendar.getInstance().apply {
-            time = safeArgs.date
+            time = requireArguments().getSerializable(DATE) as Date
         }
 
         return TimePickerDialog(
@@ -48,7 +113,7 @@ class TimeDialog : DialogFragment() {
     }
 
     private fun setTimeResult(date: Date) {
-        val savedStateHandle = navController.previousBackStackEntry?.savedStateHandle
-        savedStateHandle?.set(safeArgs.requestKey, date)
+        parentFragmentManager.setFragmentResult(requestKey, bundleOf(DATE to date))
     }
+
 }

@@ -87,9 +87,6 @@
         <action
             android:id="@+id/action_new_donut_to_select_image"
             app:destination="@id/nav_select_image" />
-        <action
-            android:id="@+id/action_new_donut_to_time_dialog"
-            app:destination="@id/nav_time_dialog" />
     </fragment>
     <fragment
         android:id="@+id/nav_edit_donut"
@@ -103,21 +100,7 @@
             android:id="@+id/action_edit_donut_to_select_image"
             app:destination="@id/nav_select_image" />
         <action
-            android:id="@+id/action_edit_donut_to_time_dialog"
-            app:destination="@id/nav_time_dialog" />
-        <action
             android:id="@+id/action_edit_donut_to_confirmation"
             app:destination="@id/nav_confirmation" />
     </fragment>
-    <dialog
-        android:id="@+id/nav_time_dialog"
-        android:name="ca.tetervak.donutdata3.ui.dialogs.TimeDialog"
-        android:label="@string/fragment_time_dialog" >
-        <argument
-            android:name="requestKey"
-            app:argType="string" />
-        <argument
-            android:name="date"
-            app:argType="java.util.Date" />
-    </dialog>
 </navigation>
