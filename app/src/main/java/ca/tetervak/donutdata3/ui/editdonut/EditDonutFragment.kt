@@ -16,10 +16,10 @@ import ca.tetervak.donutdata3.domain.Donut
 import ca.tetervak.donutdata3.ui.binding.bindDate
 import ca.tetervak.donutdata3.ui.binding.bindDonutImage
 import ca.tetervak.donutdata3.ui.binding.bindTime
-import ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog
+import ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog.Companion.setConfirmationResultListener
+import ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog.Companion.showConfirmationDialog
 import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.setDateResultListener
 import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.showDateDialog
-import ca.tetervak.donutdata3.ui.dialogs.TimeDialog
 import ca.tetervak.donutdata3.ui.dialogs.TimeDialog.Companion.setTimeResultListener
 import ca.tetervak.donutdata3.ui.dialogs.TimeDialog.Companion.showTimeDialog
 import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment
@@ -31,7 +31,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class EditDonutFragment : Fragment() {
 
-    companion object{
+    companion object {
         private const val TAG = "EditDonutFragment"
         private const val CONFIRM_DELETE_ITEM = "confirmDeleteItem"
         private const val GET_DATE = "getDate"
@@ -73,7 +73,7 @@ class EditDonutFragment : Fragment() {
         navController = findNavController()
 
         if (savedInstanceState is Bundle) {
-            donutImage = savedInstanceState.getString(DONUT_IMAGE,"cinnamon_sugar.png")
+            donutImage = savedInstanceState.getString(DONUT_IMAGE, "cinnamon_sugar.png")
             date = savedInstanceState.getSerializable(DATE) as Date
             isDonutLoaded = savedInstanceState.getBoolean(IS_DONUT_LOADED, false)
         }
@@ -83,7 +83,7 @@ class EditDonutFragment : Fragment() {
         bindDate(binding.dateLink, date)
         bindTime(binding.timeLink, date)
 
-        if(!isDonutLoaded) {
+        if (!isDonutLoaded) {
             editDonutViewModel.donut.observe(viewLifecycleOwner) { donut ->
                 binding.name.setText(donut.name)
                 binding.description.setText(donut.description)
@@ -145,10 +145,9 @@ class EditDonutFragment : Fragment() {
             bindTime(binding.timeLink, date)
         }
 
-        ConfirmationDialog.setResultListener(
-            this, R.id.nav_edit_donut, CONFIRM_DELETE_ITEM) { result ->
+        setConfirmationResultListener(this, CONFIRM_DELETE_ITEM) { result ->
             mainViewModel.delete(result.itemId!!)
-            if(result.doNotAskAgain){
+            if (result.doNotAskAgain) {
                 settings.confirmDelete = false
             }
             showList()
@@ -217,12 +216,13 @@ class EditDonutFragment : Fragment() {
 
     private fun onDelete() {
         if (settings.confirmDelete) {
-            val action = EditDonutFragmentDirections.actionEditDonutToConfirmation(
-                getString(R.string.confirm_delete_message),
+            showConfirmationDialog(
+                this,
                 CONFIRM_DELETE_ITEM,
+                getString(R.string.app_name),
+                getString(R.string.confirm_delete_message),
                 safeArgs.donutId
             )
-            navController.navigate(action)
         } else {
             mainViewModel.delete(safeArgs.donutId)
             showList()

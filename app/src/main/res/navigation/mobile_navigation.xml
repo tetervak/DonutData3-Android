@@ -27,9 +27,6 @@
         android:label="@string/fragment_donut_list"
         tools:layout="@layout/donut_list_fragment">
         <action
-            android:id="@+id/action_donut_list_to_confirmation"
-            app:destination="@id/nav_confirmation" />
-        <action
             android:id="@+id/action_donut_list_to_new_donut"
             app:destination="@id/nav_new_donut" />
         <action
@@ -37,22 +34,6 @@
             app:destination="@id/nav_edit_donut" />
     </fragment>
 
-    <dialog
-        android:id="@+id/nav_confirmation"
-        android:name="ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog"
-        android:label="@string/fragment_confirmation_dialog"
-        tools:layout="@layout/confirmation_dialog">
-        <argument
-            android:name="message"
-            app:argType="string" />
-        <argument
-            android:name="requestKey"
-            app:argType="string" />
-        <argument
-            android:name="itemId"
-            app:argType="string"
-            app:nullable="true" />
-    </dialog>
     <fragment
         android:id="@+id/nav_select_image"
         android:name="ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment"
@@ -99,8 +80,5 @@
         <action
             android:id="@+id/action_edit_donut_to_select_image"
             app:destination="@id/nav_select_image" />
-        <action
-            android:id="@+id/action_edit_donut_to_confirmation"
-            app:destination="@id/nav_confirmation" />
     </fragment>
 </navigation>

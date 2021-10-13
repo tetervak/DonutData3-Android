@@ -11,6 +11,20 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import java.util.*
 
+/*
+    This dialog can be used with or without Navigation Component.
+
+    If used with Navigation component, pass the following 2 required arguments
+        requestKey: String
+        date: Date
+    The date argument is allowed because it is Serializable
+
+    Otherwise, if used without Navigation Component,
+    use showTimeDialog function to open the dialog.
+
+    To get the result use setDateResultListener function when
+    used with or without Navigation Component
+*/
 class TimeDialog : DialogFragment() {
 
     companion object {
@@ -23,7 +37,10 @@ class TimeDialog : DialogFragment() {
             requestKey: String,
             date: Date
         ) {
-            showTimeDialog(activity.supportFragmentManager, requestKey, date)
+            showTimeDialog(
+                activity.supportFragmentManager,
+                requestKey,
+                date)
         }
 
         fun showTimeDialog(
@@ -31,7 +48,10 @@ class TimeDialog : DialogFragment() {
             requestKey: String,
             date: Date
         ) {
-            showTimeDialog(parentFragment.childFragmentManager, requestKey, date)
+            showTimeDialog(
+                parentFragment.parentFragmentManager,
+                requestKey,
+                date)
         }
 
         private fun showTimeDialog(
@@ -54,7 +74,7 @@ class TimeDialog : DialogFragment() {
             onResult: (Date) -> Unit
         ) {
             setTimeResultListener(
-                parentFragment.childFragmentManager,
+                parentFragment.parentFragmentManager,
                 parentFragment.viewLifecycleOwner,
                 requestKey,
                 onResult
