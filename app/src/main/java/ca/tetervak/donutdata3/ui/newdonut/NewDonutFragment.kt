@@ -13,10 +13,7 @@ import ca.tetervak.donutdata3.R
 import ca.tetervak.donutdata3.databinding.NewDonutFragmentBinding
 import ca.tetervak.donutdata3.domain.Brand
 import ca.tetervak.donutdata3.domain.Donut
-import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.showDateDialog
-import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.setDateResultListener
-import ca.tetervak.donutdata3.ui.dialogs.TimeDialog.Companion.setTimeResultListener
-import ca.tetervak.donutdata3.ui.dialogs.TimeDialog.Companion.showTimeDialog
+import ca.tetervak.donutdata3.ui.dialogs.*
 import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment.Companion.setSelectImageResultListener
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
@@ -92,20 +89,20 @@ class NewDonutFragment : Fragment() {
 
 
         binding.dateLink.setOnClickListener {
-            showDateDialog(this, GET_DATE, date)
+            showDateDialog(requestKey = GET_DATE, date = date)
         }
 
-        setDateResultListener(this, GET_DATE){
+        setDateResultListener(requestKey = GET_DATE){
             date = it
             binding.date = date
         }
 
         binding.timeLink.setOnClickListener {
-            showTimeDialog(this, GET_TIME, date)
+            showTimeDialog(requestKey = GET_TIME, date = date)
         }
 
         // get time from TimeDialog
-        setTimeResultListener(this, GET_TIME) {
+        setTimeResultListener(requestKey = GET_TIME) {
             date = it
             binding.date = date
         }

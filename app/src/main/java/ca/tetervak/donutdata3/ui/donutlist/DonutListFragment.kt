@@ -13,8 +13,8 @@ import ca.tetervak.donutdata3.MainViewModel
 import ca.tetervak.donutdata3.R
 import ca.tetervak.donutdata3.databinding.DonutListFragmentBinding
 import ca.tetervak.donutdata3.domain.SortBy
-import ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog.Companion.showConfirmationDialog
-import ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog.Companion.setConfirmationResultListener
+import ca.tetervak.donutdata3.ui.dialogs.setConfirmationResultListener
+import ca.tetervak.donutdata3.ui.dialogs.showConfirmationDialog
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -60,11 +60,10 @@ class DonutListFragment : Fragment() {
             onDelete = { donut ->
                 if(settings.confirmDelete){
                     showConfirmationDialog(
-                        this,
-                        CONFIRM_DELETE_ITEM,
-                        getString(R.string.app_name),
-                        getString(R.string.confirm_delete_message),
-                        donut.id
+                        requestKey = CONFIRM_DELETE_ITEM,
+                        title = getString(R.string.app_name),
+                        message = getString(R.string.confirm_delete_message),
+                        itemId = donut.id
                     )
                 }else{
                     mainViewModel.delete(donut)
@@ -83,7 +82,7 @@ class DonutListFragment : Fragment() {
         }
 
         setConfirmationResultListener(
-            this, CONFIRM_CLEAR_ALL
+            requestKey = CONFIRM_CLEAR_ALL
         ) { result ->
             Log.d(TAG, "onCreateView: clear all is confirmed")
             donutListViewModel.deleteAll()
@@ -92,9 +91,7 @@ class DonutListFragment : Fragment() {
             }
         }
 
-        setConfirmationResultListener(
-            this, CONFIRM_DELETE_ITEM
-        ) { result ->
+        setConfirmationResultListener(CONFIRM_DELETE_ITEM) { result ->
             Log.d(TAG, "onCreateView: delete item id=${result.itemId} is confirmed")
             mainViewModel.delete(result.itemId!!)
             if (result.doNotAskAgain) {
@@ -115,10 +112,9 @@ class DonutListFragment : Fragment() {
             R.id.action_clear -> {
                 if(settings.confirmClear){
                     showConfirmationDialog(
-                        this,
-                        CONFIRM_CLEAR_ALL,
-                        getString(R.string.app_name),
-                        getString(R.string.confirm_clear_message)
+                        requestKey = CONFIRM_CLEAR_ALL,
+                        title = getString(R.string.app_name),
+                        message = getString(R.string.confirm_clear_message)
                     )
                 }else{
                     donutListViewModel.deleteAll()

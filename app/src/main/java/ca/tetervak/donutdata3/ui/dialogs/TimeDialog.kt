@@ -25,6 +25,41 @@ import java.util.*
     To get the result use setDateResultListener function when
     used with or without Navigation Component
 */
+
+fun AppCompatActivity.showTimeDialog(requestKey: String, date: Date) {
+    TimeDialog.showTimeDialog(
+        supportFragmentManager,
+        requestKey,
+        date
+    )
+}
+
+fun Fragment.showTimeDialog(requestKey: String, date: Date) {
+    TimeDialog.showTimeDialog(
+        parentFragmentManager,
+        requestKey,
+        date
+    )
+}
+
+fun AppCompatActivity.setTimeResultListener(requestKey: String, onResult: (Date) -> Unit){
+    TimeDialog.setTimeResultListener(
+        supportFragmentManager,
+        this,
+        requestKey,
+        onResult
+    )
+}
+
+fun Fragment.setTimeResultListener(requestKey: String, onResult: (Date) -> Unit){
+    TimeDialog.setTimeResultListener(
+        parentFragmentManager,
+        viewLifecycleOwner,
+        requestKey,
+        onResult
+    )
+}
+
 class TimeDialog : DialogFragment() {
 
     companion object {
@@ -33,28 +68,6 @@ class TimeDialog : DialogFragment() {
         private const val DATE = "date"
 
         fun showTimeDialog(
-            activity: AppCompatActivity,
-            requestKey: String,
-            date: Date
-        ) {
-            showTimeDialog(
-                activity.supportFragmentManager,
-                requestKey,
-                date)
-        }
-
-        fun showTimeDialog(
-            backFragment: Fragment,
-            requestKey: String,
-            date: Date
-        ) {
-            showTimeDialog(
-                backFragment.parentFragmentManager,
-                requestKey,
-                date)
-        }
-
-        private fun showTimeDialog(
             fragmentManager: FragmentManager,
             requestKey: String,
             date: Date
@@ -69,32 +82,6 @@ class TimeDialog : DialogFragment() {
         }
 
         fun setTimeResultListener(
-            backFragment: Fragment,
-            requestKey: String,
-            onResult: (Date) -> Unit
-        ) {
-            setTimeResultListener(
-                backFragment.parentFragmentManager,
-                backFragment.viewLifecycleOwner,
-                requestKey,
-                onResult
-            )
-        }
-
-        fun setTimeResultListener(
-            activity: AppCompatActivity,
-            requestKey: String,
-            onResult: (Date) -> Unit
-        ) {
-            setTimeResultListener(
-                activity.supportFragmentManager,
-                activity,
-                requestKey,
-                onResult
-            )
-        }
-
-        private fun setTimeResultListener(
             fragmentManager: FragmentManager,
             lifecycleOwner: LifecycleOwner,
             requestKey: String,

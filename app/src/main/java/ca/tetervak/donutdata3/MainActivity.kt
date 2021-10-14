@@ -9,7 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import ca.tetervak.donutdata3.databinding.ActivityMainBinding
-import ca.tetervak.donutdata3.ui.dialogs.InfoDialog.Companion.showInfoDialog
+import ca.tetervak.donutdata3.ui.dialogs.showInfoDialog
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,7 +52,10 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.onNavDestinationSelected(item, navController) ||
                 when (item.itemId) {
                     R.id.action_about -> {
-                        showInfoDialog(this, getString(R.string.app_name), getString(R.string.author))
+                        showInfoDialog(
+                            title = getString(R.string.app_name),
+                            message = getString(R.string.author)
+                        )
                         true
                     }
                     else -> super.onOptionsItemSelected(item)

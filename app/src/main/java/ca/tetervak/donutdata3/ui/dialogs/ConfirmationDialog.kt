@@ -27,6 +27,61 @@ import java.io.Serializable
     To get the result use setConfirmationResultListener function when
     used with or without Navigation Component
 */
+
+fun AppCompatActivity.showConfirmationDialog (
+    requestKey: String,
+    title: String,
+    message: String,
+    itemId: String? = null
+){
+    ConfirmationDialog.showConfirmationDialog(
+        supportFragmentManager,
+        requestKey,
+        title,
+        message,
+        itemId
+    )
+}
+
+fun Fragment.showConfirmationDialog (
+    requestKey: String,
+    title: String,
+    message: String,
+    itemId: String? = null
+){
+    ConfirmationDialog.showConfirmationDialog(
+        parentFragmentManager,
+        requestKey,
+        title,
+        message,
+        itemId
+    )
+}
+
+fun AppCompatActivity.setConfirmationResultListener(
+    requestKey: String,
+    onResult: (ConfirmationDialog.ConfirmationResult) -> Unit
+){
+    ConfirmationDialog.setConfirmationResultListener(
+        supportFragmentManager,
+        this,
+        requestKey,
+        onResult
+    )
+}
+
+fun Fragment.setConfirmationResultListener(
+    requestKey: String,
+    onResult: (ConfirmationDialog.ConfirmationResult) -> Unit
+){
+    ConfirmationDialog.setConfirmationResultListener(
+        parentFragmentManager,
+        viewLifecycleOwner,
+        requestKey,
+        onResult
+    )
+}
+
 class ConfirmationDialog : DialogFragment() {
 
     data class ConfirmationResult(
@@ -59,38 +114,6 @@ class ConfirmationDialog : DialogFragment() {
         }
 
         fun showConfirmationDialog (
-            activity: AppCompatActivity,
-            requestKey: String,
-            title: String,
-            message: String,
-            itemId: String? = null
-        ){
-            showConfirmationDialog(
-                activity.supportFragmentManager,
-                requestKey,
-                title,
-                message,
-                itemId
-            )
-        }
-
-        fun showConfirmationDialog (
-            backFragment: Fragment,
-            requestKey: String,
-            title: String,
-            message: String,
-            itemId: String? = null
-        ){
-            showConfirmationDialog(
-                backFragment.parentFragmentManager,
-                requestKey,
-                title,
-                message,
-                itemId
-            )
-        }
-
-        private fun showConfirmationDialog (
             fragmentManager: FragmentManager,
             requestKey: String,
             title: String,
@@ -101,32 +124,6 @@ class ConfirmationDialog : DialogFragment() {
         }
 
         fun setConfirmationResultListener(
-            activity: AppCompatActivity,
-            requestKey: String,
-            onResult: (ConfirmationResult) -> Unit
-        ){
-            setConfirmationResultListener(
-                activity.supportFragmentManager,
-                activity,
-                requestKey,
-                onResult
-            )
-        }
-
-        fun setConfirmationResultListener(
-            backFragment: Fragment,
-            requestKey: String,
-            onResult: (ConfirmationResult) -> Unit
-        ){
-            setConfirmationResultListener(
-                backFragment.parentFragmentManager,
-                backFragment.viewLifecycleOwner,
-                requestKey,
-                onResult
-            )
-        }
-
-        private fun setConfirmationResultListener(
             fragmentManager: FragmentManager,
             lifecycleOwner: LifecycleOwner,
             requestKey: String,

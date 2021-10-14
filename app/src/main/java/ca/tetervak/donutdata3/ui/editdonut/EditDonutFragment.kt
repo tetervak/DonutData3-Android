@@ -16,12 +16,7 @@ import ca.tetervak.donutdata3.domain.Donut
 import ca.tetervak.donutdata3.ui.binding.bindDate
 import ca.tetervak.donutdata3.ui.binding.bindDonutImage
 import ca.tetervak.donutdata3.ui.binding.bindTime
-import ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog.Companion.setConfirmationResultListener
-import ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog.Companion.showConfirmationDialog
-import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.setDateResultListener
-import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.showDateDialog
-import ca.tetervak.donutdata3.ui.dialogs.TimeDialog.Companion.setTimeResultListener
-import ca.tetervak.donutdata3.ui.dialogs.TimeDialog.Companion.showTimeDialog
+import ca.tetervak.donutdata3.ui.dialogs.*
 import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment.Companion.setSelectImageResultListener
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
@@ -123,26 +118,26 @@ class EditDonutFragment : Fragment() {
         }
 
         binding.dateLink.setOnClickListener {
-            showDateDialog(this, GET_DATE, date)
+            showDateDialog(requestKey = GET_DATE, date = date)
         }
 
         // get date from DateDialog
-        setDateResultListener(this, GET_DATE) {
+        setDateResultListener(requestKey = GET_DATE) {
             date = it
             bindDate(binding.dateLink, date)
         }
 
         binding.timeLink.setOnClickListener {
-            showTimeDialog(this, GET_TIME, date)
+            showTimeDialog(requestKey = GET_TIME, date = date)
         }
 
         // get time from TimeDialog
-        setTimeResultListener(this, GET_TIME) {
+        setTimeResultListener(requestKey = GET_TIME) {
             date = it
             bindTime(binding.timeLink, date)
         }
 
-        setConfirmationResultListener(this, CONFIRM_DELETE_ITEM) { result ->
+        setConfirmationResultListener(requestKey = CONFIRM_DELETE_ITEM) { result ->
             mainViewModel.delete(result.itemId!!)
             if (result.doNotAskAgain) {
                 settings.confirmDelete = false
@@ -214,11 +209,10 @@ class EditDonutFragment : Fragment() {
     private fun onDelete() {
         if (settings.confirmDelete) {
             showConfirmationDialog(
-                this,
-                CONFIRM_DELETE_ITEM,
-                getString(R.string.app_name),
-                getString(R.string.confirm_delete_message),
-                safeArgs.donutId
+                requestKey = CONFIRM_DELETE_ITEM,
+                title = getString(R.string.app_name),
+                message = getString(R.string.confirm_delete_message),
+                itemId = safeArgs.donutId
             )
         } else {
             mainViewModel.delete(safeArgs.donutId)

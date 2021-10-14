@@ -19,6 +19,23 @@ import androidx.fragment.app.FragmentManager
     Otherwise, if used without Navigation Component,
     use showInfoDialog function to open the dialog.
 */
+
+fun AppCompatActivity.showInfoDialog(title: String, message: String) {
+    InfoDialog.showInfoDialog(
+        supportFragmentManager,
+        title,
+        message
+    )
+}
+
+fun Fragment.showInfoDialog(title: String, message: String) {
+    InfoDialog.showInfoDialog(
+        parentFragmentManager,
+        title,
+        message
+    )
+}
+
 class InfoDialog : DialogFragment() {
 
     companion object {
@@ -27,28 +44,6 @@ class InfoDialog : DialogFragment() {
         private const val MESSAGE = "message"
 
         fun showInfoDialog(
-            activity: AppCompatActivity,
-            title: String,
-            message: String
-        ) {
-            showInfoDialog(
-                activity.supportFragmentManager,
-                title,
-                message)
-        }
-
-        fun showInfoDialog(
-            backFragment: Fragment,
-            title: String,
-            message: String
-        ) {
-            showInfoDialog(
-                backFragment.parentFragmentManager,
-                title,
-                message)
-        }
-
-        private fun showInfoDialog(
             fragmentManager: FragmentManager,
             title: String,
             message: String

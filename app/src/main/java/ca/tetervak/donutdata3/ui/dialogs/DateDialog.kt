@@ -25,6 +25,41 @@ import java.util.*
     To get the result use setDateResultListener function when
     used with or without Navigation Component
 */
+
+fun AppCompatActivity.showDateDialog(requestKey: String, date: Date) {
+    DateDialog.showDateDialog(
+        supportFragmentManager,
+        requestKey,
+        date
+    )
+}
+
+fun Fragment.showDateDialog(requestKey: String, date: Date) {
+    DateDialog.showDateDialog(
+        parentFragmentManager,
+        requestKey,
+        date
+    )
+}
+
+fun AppCompatActivity.setDateResultListener(requestKey: String, onResult: (Date) -> Unit) {
+    DateDialog.setDateResultListener(
+        supportFragmentManager,
+        this,
+        requestKey,
+        onResult
+    )
+}
+
+fun Fragment.setDateResultListener(requestKey: String, onResult: (Date) -> Unit) {
+    DateDialog.setDateResultListener(
+        parentFragmentManager,
+        viewLifecycleOwner,
+        requestKey,
+        onResult
+    )
+}
+
 class DateDialog : DialogFragment() {
 
     companion object {
@@ -33,28 +68,6 @@ class DateDialog : DialogFragment() {
         private const val DATE = "date"
 
         fun showDateDialog(
-            activity: AppCompatActivity,
-            requestKey: String,
-            date: Date
-        ) {
-            showDateDialog(
-                activity.supportFragmentManager,
-                requestKey,
-                date)
-        }
-
-        fun showDateDialog(
-            backFragment: Fragment,
-            requestKey: String,
-            date: Date
-        ) {
-            showDateDialog(
-                backFragment.parentFragmentManager,
-                requestKey,
-                date)
-        }
-
-        private fun showDateDialog(
             fragmentManager: FragmentManager,
             requestKey: String,
             date: Date
@@ -62,39 +75,7 @@ class DateDialog : DialogFragment() {
             newInstance(requestKey, date).show(fragmentManager, TAG)
         }
 
-        private fun newInstance(requestKey: String, date: Date): DateDialog {
-            return DateDialog().apply {
-                arguments = bundleOf(REQUEST_KEY to requestKey, DATE to date)
-            }
-        }
-
         fun setDateResultListener(
-            backFragment: Fragment,
-            requestKey: String,
-            onResult: (Date) -> Unit
-        ) {
-            setDateResultListener(
-                backFragment.parentFragmentManager,
-                backFragment.viewLifecycleOwner,
-                requestKey,
-                onResult
-            )
-        }
-
-        fun setDateResultListener(
-            activity: AppCompatActivity,
-            requestKey: String,
-            onResult: (Date) -> Unit
-        ) {
-            setDateResultListener(
-                activity.supportFragmentManager,
-                activity,
-                requestKey,
-                onResult
-            )
-        }
-
-        private fun setDateResultListener(
             fragmentManager: FragmentManager,
             lifecycleOwner: LifecycleOwner,
             requestKey: String,
@@ -105,6 +86,12 @@ class DateDialog : DialogFragment() {
                 lifecycleOwner
             ) { _, bundle ->
                 onResult(bundle.getSerializable(DATE) as Date)
+            }
+        }
+
+        private fun newInstance(requestKey: String, date: Date): DateDialog {
+            return DateDialog().apply {
+                arguments = bundleOf(REQUEST_KEY to requestKey, DATE to date)
             }
         }
     }
