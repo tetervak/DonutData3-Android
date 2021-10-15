@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import ca.tetervak.donutdata3.MainViewModel
 import ca.tetervak.donutdata3.R
 import ca.tetervak.donutdata3.databinding.DonutListFragmentBinding
-import ca.tetervak.donutdata3.ui.dialogs.ConfirmationDialog.Companion.setConfirmationResultListener
+import ca.tetervak.donutdata3.ui.dialogs.setConfirmationResultListener
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -80,7 +80,8 @@ class DonutListFragment : Fragment() {
         }
 
         setConfirmationResultListener(
-            this, R.id.nav_donut_list, CONFIRM_CLEAR_ALL
+            backFragmentId = R.id.nav_donut_list,
+            requestKey = CONFIRM_CLEAR_ALL
         ) { result ->
             Log.d(TAG, "onCreateView: clear all is confirmed")
             donutListViewModel.deleteAll()
@@ -90,7 +91,8 @@ class DonutListFragment : Fragment() {
         }
 
         setConfirmationResultListener(
-            this, R.id.nav_donut_list, CONFIRM_DELETE_ITEM
+            backFragmentId = R.id.nav_donut_list,
+            requestKey = CONFIRM_DELETE_ITEM
         ) { result ->
             Log.d(TAG, "onCreateView: delete item id=${result.itemId} is confirmed")
             mainViewModel.delete(result.itemId!!)

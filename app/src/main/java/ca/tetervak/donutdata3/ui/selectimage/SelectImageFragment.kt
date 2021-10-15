@@ -17,13 +17,17 @@ fun Fragment.setSelectImageResultListener(
     backFragmentId: Int,
     requestKey: String,
     onResult: (String) -> Unit
-){
-    findNavController()
-        .getBackStackEntry(backFragmentId)
-        .savedStateHandle
+) {
+    val savedStateHandle =
+        findNavController()
+            .getBackStackEntry(backFragmentId)
+            .savedStateHandle
+
+    savedStateHandle
         .getLiveData<String>(requestKey)
         .observe(viewLifecycleOwner) { fileName ->
             onResult(fileName)
+            savedStateHandle.remove<String>(requestKey)
         }
 }
 

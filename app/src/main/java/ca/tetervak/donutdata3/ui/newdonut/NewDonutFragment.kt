@@ -13,8 +13,8 @@ import ca.tetervak.donutdata3.R
 import ca.tetervak.donutdata3.databinding.NewDonutFragmentBinding
 import ca.tetervak.donutdata3.domain.Brand
 import ca.tetervak.donutdata3.domain.Donut
-import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.setDateResultListener
-import ca.tetervak.donutdata3.ui.dialogs.TimeDialog.Companion.setTimeResultListener
+import ca.tetervak.donutdata3.ui.dialogs.setDateResultListener
+import ca.tetervak.donutdata3.ui.dialogs.setTimeResultListener
 import ca.tetervak.donutdata3.ui.selectimage.setSelectImageResultListener
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,9 +25,11 @@ import javax.inject.Inject
 class NewDonutFragment : Fragment() {
 
     companion object {
+        private const val DEFAULT_IMAGE = "cinnamon_sugar.png"
         private const val GET_IMAGE = "getImage"
         private const val GET_DATE = "getDate"
         private const val GET_TIME = "getTime"
+        private const val DONUT_IMAGE = "donutImage"
         private const val DATE = "date"
     }
 
@@ -38,7 +40,7 @@ class NewDonutFragment : Fragment() {
     private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var navController: NavController
 
-    private var donutImage: String = "cinnamon_sugar.png"
+    private var donutImage: String = DEFAULT_IMAGE
     private var date: Date = Date()
 
     @Inject
@@ -53,6 +55,7 @@ class NewDonutFragment : Fragment() {
         navController = findNavController()
 
         if (savedInstanceState is Bundle) {
+            donutImage = savedInstanceState.getString(DONUT_IMAGE, DEFAULT_IMAGE)
             date = savedInstanceState.getSerializable(DATE) as Date
         } else {
             binding.description.setText(settings.defaultDescription)
@@ -98,7 +101,10 @@ class NewDonutFragment : Fragment() {
         }
 
         // get date from DateDialog
-        setDateResultListener(this, R.id.nav_new_donut, GET_DATE) { result ->
+        setDateResultListener(
+            backFragmentId = R.id.nav_new_donut,
+            requestKey = GET_DATE
+        ) { result ->
             date = result
             binding.date = date
         }
@@ -110,7 +116,10 @@ class NewDonutFragment : Fragment() {
         }
 
         // get time from TimeDialog
-        setTimeResultListener(this, R.id.nav_new_donut, GET_TIME) { result ->
+        setTimeResultListener(
+            backFragmentId = R.id.nav_new_donut,
+            requestKey = GET_TIME
+        ) { result ->
             date = result
             binding.date = date
         }
@@ -152,6 +161,7 @@ class NewDonutFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        outState.putString(DONUT_IMAGE, donutImage)
         outState.putSerializable(DATE, date)
     }
 

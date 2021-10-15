@@ -5,45 +5,24 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import java.util.*
 
+fun Fragment.setTimeResultListener(
+    backFragmentId: Int,
+    requestKey: String,
+    onResult: (Date) -> Unit
+) {
+    setDialogResultListener(
+        backFragmentId,
+        requestKey,
+        onResult
+    )
+}
 
 class TimeDialog : DialogFragment() {
-
-    companion object {
-
-        fun setTimeResultListener(
-            backFragment: Fragment,
-            backFragmentId: Int,
-            requestKey: String,
-            onResult: (Date) -> Unit
-        ) {
-            val navController = backFragment.findNavController()
-            val navBackStackEntry = navController.getBackStackEntry(backFragmentId)
-            val handle = navBackStackEntry.savedStateHandle
-            val observer = LifecycleEventObserver { _, event ->
-                if (event == Lifecycle.Event.ON_RESUME
-                    && handle.contains(requestKey)
-                ) {
-                    val date: Date? = handle.get(requestKey)
-                    if(date is Date){
-                        onResult(date)
-                    }
-                }
-            }
-            navBackStackEntry.lifecycle.addObserver(observer)
-            backFragment.viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-                if (event == Lifecycle.Event.ON_DESTROY) {
-                    navBackStackEntry.lifecycle.removeObserver(observer)
-                }
-            })
-        }
-    }
 
     private val safeArgs: TimeDialogArgs by navArgs()
 
@@ -74,5 +53,4 @@ class TimeDialog : DialogFragment() {
         val savedStateHandle = navController.previousBackStackEntry?.savedStateHandle
         savedStateHandle?.set(safeArgs.requestKey, date)
     }
-
 }

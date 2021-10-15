@@ -2,12 +2,9 @@ package ca.tetervak.donutdata3.ui.dialogs
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -15,46 +12,24 @@ import ca.tetervak.donutdata3.R
 import ca.tetervak.donutdata3.databinding.ConfirmationDialogBinding
 import java.io.Serializable
 
+fun Fragment.setConfirmationResultListener(
+    backFragmentId: Int,
+    requestKey: String,
+    onResult: (ConfirmationResult) -> Unit
+) {
+    setDialogResultListener(
+        backFragmentId,
+        requestKey,
+        onResult
+    )
+}
+
+data class ConfirmationResult(
+    val itemId: String?,
+    val doNotAskAgain: Boolean = false
+) : Serializable
+
 class ConfirmationDialog : DialogFragment() {
-
-    data class ConfirmationResult(
-        val itemId: String?,
-        val doNotAskAgain: Boolean = false
-    ) : Serializable
-
-    companion object {
-        private const val TAG = "ConfirmationDialog"
-
-        fun setConfirmationResultListener(
-            backFragment: Fragment,
-            backFragmentId: Int,
-            requestKey: String,
-            onResult: (ConfirmationResult) -> Unit
-        ) {
-            val navController = backFragment.findNavController()
-            val navBackStackEntry = navController.getBackStackEntry(backFragmentId)
-            val handle = navBackStackEntry.savedStateHandle
-            val observer = LifecycleEventObserver { _, event ->
-                if (event == Lifecycle.Event.ON_RESUME
-                    && handle.contains(requestKey)
-                ) {
-                    val result: ConfirmationResult? = handle.get(requestKey)
-                    if(result is ConfirmationResult){
-                        onResult(result)
-                        handle.remove<ConfirmationResult>(requestKey)
-                    }
-                    Log.d(TAG, "setResultListener: onResult is called")
-                }
-            }
-            navBackStackEntry.lifecycle.addObserver(observer)
-            backFragment.viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-                if (event == Lifecycle.Event.ON_DESTROY) {
-                    Log.d(TAG, "setResultListener: the fragment view is destroyed")
-                    navBackStackEntry.lifecycle.removeObserver(observer)
-                }
-            })
-        }
-    }
 
     private val safeArgs: ConfirmationDialogArgs by navArgs()
     private lateinit var navController: NavController

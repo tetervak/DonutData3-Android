@@ -5,44 +5,24 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import java.util.*
 
+fun Fragment.setDateResultListener(
+    backFragmentId: Int,
+    requestKey: String,
+    onResult: (Date) -> Unit
+) {
+    setDialogResultListener(
+        backFragmentId,
+        requestKey,
+        onResult
+    )
+}
+
 class DateDialog : DialogFragment() {
-
-    companion object {
-
-        fun setDateResultListener(
-            backFragment: Fragment,
-            backFragmentId: Int,
-            requestKey: String,
-            onResult: (Date) -> Unit
-        ) {
-            val navController = backFragment.findNavController()
-            val navBackStackEntry = navController.getBackStackEntry(backFragmentId)
-            val handle = navBackStackEntry.savedStateHandle
-            val observer = LifecycleEventObserver { _, event ->
-                if (event == Lifecycle.Event.ON_RESUME
-                    && handle.contains(requestKey)
-                ) {
-                    val date: Date? = handle.get(requestKey)
-                    if(date is Date){
-                        onResult(date)
-                    }
-                }
-            }
-            navBackStackEntry.lifecycle.addObserver(observer)
-            backFragment.viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-                if (event == Lifecycle.Event.ON_DESTROY) {
-                    navBackStackEntry.lifecycle.removeObserver(observer)
-                }
-            })
-        }
-    }
 
     private val safeArgs: DateDialogArgs by navArgs()
     private lateinit var navController: NavController
@@ -51,16 +31,17 @@ class DateDialog : DialogFragment() {
 
         navController = findNavController()
 
-        val calendar: Calendar = Calendar.getInstance().apply{
+        val calendar: Calendar = Calendar.getInstance().apply {
             time = safeArgs.date
         }
 
-        return DatePickerDialog(requireActivity()).apply{
+        return DatePickerDialog(requireActivity()).apply {
 
             updateDate(
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH))
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
 
             setOnDateSetListener { _, year, month, day ->
                 calendar.set(year, month, day)
