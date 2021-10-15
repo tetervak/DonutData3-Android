@@ -39,7 +39,7 @@ fun Fragment.showInfoDialog(title: String, message: String) {
 class InfoDialog : DialogFragment() {
 
     companion object {
-        const val TAG = "InfoDialog"
+        private const val TAG = "InfoDialog"
         private const val TITLE = "title"
         private const val MESSAGE = "message"
 

@@ -6,29 +6,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ca.tetervak.donutdata3.databinding.SelectImageFragmentBinding
+import ca.tetervak.donutdata3.ui.newdonut.NewDonutFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 fun Fragment.setSelectImageResultListener(
-    backFragmentId: Int,
     requestKey: String,
     onResult: (String) -> Unit
-) {
-    val savedStateHandle =
-        findNavController()
-            .getBackStackEntry(backFragmentId)
-            .savedStateHandle
-
-    savedStateHandle
-        .getLiveData<String>(requestKey)
-        .observe(viewLifecycleOwner) { fileName ->
-            onResult(fileName)
-            savedStateHandle.remove<String>(requestKey)
-        }
+){
+    SelectImageFragment.setSelectImageResultListener(
+        parentFragmentManager,
+        viewLifecycleOwner,
+        requestKey,
+        onResult
+    )
 }
 
 @AndroidEntryPoint
@@ -37,6 +35,17 @@ class SelectImageFragment : Fragment() {
     companion object{
         private const val TAG = "SelectImageFragment"
         private const val FILE_NAME = "fileName"
+
+        fun setSelectImageResultListener(
+            fragmentManager: FragmentManager,
+            lifecycleOwner: LifecycleOwner,
+            requestKey: String,
+            onResult: (String) -> Unit
+        ){
+            fragmentManager.setFragmentResultListener(requestKey, lifecycleOwner) { _, bundle ->
+                onResult(bundle.getString(FILE_NAME)!!)
+            }
+        }
     }
 
     private val safeArgs: SelectImageFragmentArgs by navArgs()
@@ -68,16 +77,12 @@ class SelectImageFragment : Fragment() {
         }
 
         binding.cancelButton.setOnClickListener{
-            Log.d(TAG, "onCreateView: Cancel button is clicked")
             navController.popBackStack()
         }
 
         binding.okButton.setOnClickListener {
-            Log.d(TAG, "onCreateView: OK button is clicked")
-            navController
-                .previousBackStackEntry
-                ?.savedStateHandle
-                ?.set(safeArgs.requestKey, fileName)
+            parentFragmentManager.setFragmentResult(
+                safeArgs.requestKey, bundleOf(FILE_NAME to fileName))
             navController.popBackStack()
         }
 
@@ -88,6 +93,5 @@ class SelectImageFragment : Fragment() {
         super.onSaveInstanceState(outState)
         outState.putString(FILE_NAME, fileName)
     }
-
 
 }
