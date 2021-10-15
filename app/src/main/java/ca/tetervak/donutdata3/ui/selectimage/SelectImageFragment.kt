@@ -11,8 +11,21 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ca.tetervak.donutdata3.databinding.SelectImageFragmentBinding
-import ca.tetervak.donutdata3.ui.newdonut.NewDonutFragment
 import dagger.hilt.android.AndroidEntryPoint
+
+fun Fragment.setSelectImageResultListener(
+    backFragmentId: Int,
+    requestKey: String,
+    onResult: (String) -> Unit
+){
+    findNavController()
+        .getBackStackEntry(backFragmentId)
+        .savedStateHandle
+        .getLiveData<String>(requestKey)
+        .observe(viewLifecycleOwner) { fileName ->
+            onResult(fileName)
+        }
+}
 
 @AndroidEntryPoint
 class SelectImageFragment : Fragment() {
@@ -20,20 +33,6 @@ class SelectImageFragment : Fragment() {
     companion object{
         private const val TAG = "SelectImageFragment"
         private const val FILE_NAME = "fileName"
-
-        fun setSelectImageResultListener(
-            backFragment: Fragment,
-            requestKey: String,
-            onResult: (String) -> Unit
-        ){
-            backFragment.findNavController()
-                .currentBackStackEntry
-                ?.savedStateHandle
-                ?.getLiveData<String>(requestKey)
-                ?.observe(backFragment.viewLifecycleOwner) { fileName ->
-                   onResult(fileName)
-                }
-        }
     }
 
     private val safeArgs: SelectImageFragmentArgs by navArgs()

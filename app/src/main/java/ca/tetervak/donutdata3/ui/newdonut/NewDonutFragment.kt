@@ -15,7 +15,7 @@ import ca.tetervak.donutdata3.domain.Brand
 import ca.tetervak.donutdata3.domain.Donut
 import ca.tetervak.donutdata3.ui.dialogs.DateDialog.Companion.setDateResultListener
 import ca.tetervak.donutdata3.ui.dialogs.TimeDialog.Companion.setTimeResultListener
-import ca.tetervak.donutdata3.ui.selectimage.SelectImageFragment.Companion.setSelectImageResultListener
+import ca.tetervak.donutdata3.ui.selectimage.setSelectImageResultListener
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -83,7 +83,10 @@ class NewDonutFragment : Fragment() {
         }
 
         // get donut file name from SelectImageFragment
-        setSelectImageResultListener(this, GET_IMAGE) { fileName ->
+        setSelectImageResultListener(
+            backFragmentId = R.id.nav_new_donut,
+            requestKey = GET_IMAGE,
+        ) { fileName ->
             donutImage = fileName
             binding.fileName = donutImage
         }
