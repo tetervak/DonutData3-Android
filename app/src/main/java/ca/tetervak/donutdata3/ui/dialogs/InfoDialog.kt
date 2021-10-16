@@ -20,21 +20,20 @@ import androidx.fragment.app.FragmentManager
     use showInfoDialog function to open the dialog.
 */
 
-fun AppCompatActivity.showInfoDialog(title: String, message: String) {
+fun AppCompatActivity.showInfoDialog(title: String, message: String) =
     InfoDialog.showInfoDialog(
         supportFragmentManager,
         title,
         message
     )
-}
 
-fun Fragment.showInfoDialog(title: String, message: String) {
+fun Fragment.showInfoDialog(title: String, message: String) =
     InfoDialog.showInfoDialog(
         parentFragmentManager,
         title,
         message
     )
-}
+
 
 class InfoDialog : DialogFragment() {
 
@@ -47,22 +46,19 @@ class InfoDialog : DialogFragment() {
             fragmentManager: FragmentManager,
             title: String,
             message: String
-        ) {
-            newInstance(title, message).show(fragmentManager, TAG)
-        }
+        ) = newInstance(title, message).show(fragmentManager, TAG)
 
-        private fun newInstance(title: String, message: String): InfoDialog {
-            return InfoDialog().apply {
-                arguments = bundleOf( TITLE to title, MESSAGE to message)
+
+        private fun newInstance(title: String, message: String) =
+            InfoDialog().apply {
+                arguments = bundleOf(TITLE to title, MESSAGE to message)
             }
-        }
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return AlertDialog.Builder(requireContext())
+    override fun onCreateDialog(savedInstanceState: Bundle?) =
+        AlertDialog.Builder(requireContext())
             .setTitle(requireArguments().getString(TITLE))
             .setMessage(requireArguments().getString(MESSAGE))
             .setPositiveButton(android.R.string.ok, null)
             .create()
-    }
 }

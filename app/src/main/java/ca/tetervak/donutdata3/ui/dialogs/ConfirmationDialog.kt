@@ -28,59 +28,51 @@ import java.io.Serializable
     used with or without Navigation Component
 */
 
-fun AppCompatActivity.showConfirmationDialog (
+fun AppCompatActivity.showConfirmationDialog(
     requestKey: String,
     title: String,
     message: String,
     itemId: String? = null
-){
-    ConfirmationDialog.showConfirmationDialog(
-        supportFragmentManager,
-        requestKey,
-        title,
-        message,
-        itemId
-    )
-}
+) = ConfirmationDialog.showConfirmationDialog(
+    supportFragmentManager,
+    requestKey,
+    title,
+    message,
+    itemId
+)
 
-fun Fragment.showConfirmationDialog (
+fun Fragment.showConfirmationDialog(
     requestKey: String,
     title: String,
     message: String,
     itemId: String? = null
-){
-    ConfirmationDialog.showConfirmationDialog(
-        parentFragmentManager,
-        requestKey,
-        title,
-        message,
-        itemId
-    )
-}
+) = ConfirmationDialog.showConfirmationDialog(
+    parentFragmentManager,
+    requestKey,
+    title,
+    message,
+    itemId
+)
 
 fun AppCompatActivity.setConfirmationResultListener(
     requestKey: String,
     onResult: (ConfirmationDialog.ConfirmationResult) -> Unit
-){
-    ConfirmationDialog.setConfirmationResultListener(
-        supportFragmentManager,
-        this,
-        requestKey,
-        onResult
-    )
-}
+) = ConfirmationDialog.setConfirmationResultListener(
+    supportFragmentManager,
+    this,
+    requestKey,
+    onResult
+)
 
 fun Fragment.setConfirmationResultListener(
     requestKey: String,
     onResult: (ConfirmationDialog.ConfirmationResult) -> Unit
-){
-    ConfirmationDialog.setConfirmationResultListener(
-        parentFragmentManager,
-        viewLifecycleOwner,
-        requestKey,
-        onResult
-    )
-}
+) = ConfirmationDialog.setConfirmationResultListener(
+    parentFragmentManager,
+    viewLifecycleOwner,
+    requestKey,
+    onResult
+)
 
 class ConfirmationDialog : DialogFragment() {
 
@@ -102,40 +94,35 @@ class ConfirmationDialog : DialogFragment() {
             title: String,
             message: String,
             itemId: String?
-        ): ConfirmationDialog {
-            return ConfirmationDialog().apply {
-                arguments = bundleOf(
-                    REQUEST_KEY to requestKey,
-                    TITLE to title,
-                    MESSAGE to message,
-                    ITEM_ID to itemId
-                )
-            }
+        ) = ConfirmationDialog().apply {
+            arguments = bundleOf(
+                REQUEST_KEY to requestKey,
+                TITLE to title,
+                MESSAGE to message,
+                ITEM_ID to itemId
+            )
         }
 
-        fun showConfirmationDialog (
+
+        fun showConfirmationDialog(
             fragmentManager: FragmentManager,
             requestKey: String,
             title: String,
             message: String,
             itemId: String?
-        ){
-            newInstance(requestKey, title, message, itemId).show(fragmentManager, TAG)
-        }
+        ) = newInstance(requestKey, title, message, itemId).show(fragmentManager, TAG)
 
         fun setConfirmationResultListener(
             fragmentManager: FragmentManager,
             lifecycleOwner: LifecycleOwner,
             requestKey: String,
             onResult: (ConfirmationResult) -> Unit
-        ){
-            fragmentManager.setFragmentResultListener(
-                requestKey,
-                lifecycleOwner
-            ) { _, bundle ->
-                onResult(bundle.getSerializable(CONFIRMATION_RESULT) as ConfirmationResult)
-                fragmentManager.clearFragmentResult(requestKey)
-            }
+        ) = fragmentManager.setFragmentResultListener(
+            requestKey,
+            lifecycleOwner
+        ) { _, bundle ->
+            onResult(bundle.getSerializable(CONFIRMATION_RESULT) as ConfirmationResult)
+            fragmentManager.clearFragmentResult(requestKey)
         }
     }
 
@@ -163,11 +150,9 @@ class ConfirmationDialog : DialogFragment() {
         }.create()
     }
 
-    private fun confirmed(doNotAskAgain: Boolean) {
+    private fun confirmed(doNotAskAgain: Boolean) =
         parentFragmentManager.setFragmentResult(
             requestKey,
             bundleOf(CONFIRMATION_RESULT to ConfirmationResult(itemId, doNotAskAgain))
         )
-    }
-
 }

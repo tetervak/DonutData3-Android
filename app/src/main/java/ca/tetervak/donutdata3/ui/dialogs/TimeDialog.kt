@@ -26,39 +26,35 @@ import java.util.*
     used with or without Navigation Component
 */
 
-fun AppCompatActivity.showTimeDialog(requestKey: String, date: Date) {
+fun AppCompatActivity.showTimeDialog(requestKey: String, date: Date) =
     TimeDialog.showTimeDialog(
         supportFragmentManager,
         requestKey,
         date
     )
-}
 
-fun Fragment.showTimeDialog(requestKey: String, date: Date) {
+fun Fragment.showTimeDialog(requestKey: String, date: Date) =
     TimeDialog.showTimeDialog(
         parentFragmentManager,
         requestKey,
         date
     )
-}
 
-fun AppCompatActivity.setTimeResultListener(requestKey: String, onResult: (Date) -> Unit){
+fun AppCompatActivity.setTimeResultListener(requestKey: String, onResult: (Date) -> Unit) =
     TimeDialog.setTimeResultListener(
         supportFragmentManager,
         this,
         requestKey,
         onResult
     )
-}
 
-fun Fragment.setTimeResultListener(requestKey: String, onResult: (Date) -> Unit){
+fun Fragment.setTimeResultListener(requestKey: String, onResult: (Date) -> Unit) =
     TimeDialog.setTimeResultListener(
         parentFragmentManager,
         viewLifecycleOwner,
         requestKey,
         onResult
     )
-}
 
 class TimeDialog : DialogFragment() {
 
@@ -71,30 +67,27 @@ class TimeDialog : DialogFragment() {
             fragmentManager: FragmentManager,
             requestKey: String,
             date: Date
-        ) {
-            newInstance(requestKey, date).show(fragmentManager, TAG)
-        }
+        ) = newInstance(requestKey, date).show(fragmentManager, TAG)
 
-        private fun newInstance(requestKey: String, date: Date): TimeDialog {
-            return TimeDialog().apply {
+
+        private fun newInstance(requestKey: String, date: Date) =
+            TimeDialog().apply {
                 arguments = bundleOf(REQUEST_KEY to requestKey, DATE to date)
             }
-        }
 
         fun setTimeResultListener(
             fragmentManager: FragmentManager,
             lifecycleOwner: LifecycleOwner,
             requestKey: String,
             onResult: (Date) -> Unit
-        ) {
-            fragmentManager.setFragmentResultListener(
-                requestKey,
-                lifecycleOwner
-            ) { _, bundle ->
-                onResult(bundle.getSerializable(DATE) as Date)
-            }
+        ) = fragmentManager.setFragmentResultListener(
+            requestKey,
+            lifecycleOwner
+        ) { _, bundle ->
+            onResult(bundle.getSerializable(DATE) as Date)
         }
     }
+
 
     private lateinit var requestKey: String
 
@@ -119,8 +112,7 @@ class TimeDialog : DialogFragment() {
         )
     }
 
-    private fun setTimeResult(date: Date) {
+    private fun setTimeResult(date: Date) =
         parentFragmentManager.setFragmentResult(requestKey, bundleOf(DATE to date))
-    }
 
 }
