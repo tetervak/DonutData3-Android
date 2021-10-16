@@ -8,11 +8,11 @@ import ca.tetervak.donutdata3.R
 
 class AboutDialog : DialogFragment() {
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return AlertDialog.Builder(requireActivity())
-                            .setTitle(R.string.app_name)
-                            .setMessage(R.string.author)
-                            .setPositiveButton(android.R.string.ok,null)
-                            .create()
-    }
+    override fun onCreateDialog(savedInstanceState: Bundle?) =
+        AlertDialog.Builder(requireActivity())
+            .setTitle(R.string.app_name)
+            .setMessage(R.string.author)
+            .setPositiveButton(android.R.string.ok, null)
+            .create()
+
 }

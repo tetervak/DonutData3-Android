@@ -14,13 +14,12 @@ fun Fragment.setDateResultListener(
     backFragmentId: Int,
     requestKey: String,
     onResult: (Date) -> Unit
-) {
-    setDialogResultListener(
-        backFragmentId,
-        requestKey,
-        onResult
-    )
-}
+) = setDialogResultListener(
+    backFragmentId,
+    requestKey,
+    onResult
+)
+
 
 class DateDialog : DialogFragment() {
 

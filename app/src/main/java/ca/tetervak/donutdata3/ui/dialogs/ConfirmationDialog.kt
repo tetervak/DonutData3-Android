@@ -16,13 +16,12 @@ fun Fragment.setConfirmationResultListener(
     backFragmentId: Int,
     requestKey: String,
     onResult: (ConfirmationResult) -> Unit
-) {
-    setDialogResultListener(
-        backFragmentId,
-        requestKey,
-        onResult
-    )
-}
+) = setDialogResultListener(
+    backFragmentId,
+    requestKey,
+    onResult
+)
+
 
 data class ConfirmationResult(
     val itemId: String?,
