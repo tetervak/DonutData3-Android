@@ -1,16 +1,16 @@
 package ca.tetervak.donutdata3.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DonutDao {
     @Query("SELECT * FROM donuts")
-    fun getAll(): LiveData<List<DonutEntity>>
+    fun getAll(): Flow<List<DonutEntity>>
 
     @Query("SELECT * FROM donuts WHERE id = :id")
     suspend fun get(id: Long): DonutEntity

@@ -1,11 +1,11 @@
 package ca.tetervak.donutdata3.repositories
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import ca.tetervak.donutdata3.database.DonutDao
 import ca.tetervak.donutdata3.database.DonutEntity
 import ca.tetervak.donutdata3.domain.Donut
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DonutRepositoryRoom @Inject constructor(private val donutDao: DonutDao)
@@ -19,7 +19,7 @@ class DonutRepositoryRoom @Inject constructor(private val donutDao: DonutDao)
         Log.d(TAG, "init: the DonutRepositoryRoom object is created")
     }
 
-    override fun getAll(): LiveData<List<Donut>> {
+    override fun getAll(): Flow<List<Donut>> {
         return donutDao.getAll().map { list -> list.map { it.asDonut() } }
     }
 

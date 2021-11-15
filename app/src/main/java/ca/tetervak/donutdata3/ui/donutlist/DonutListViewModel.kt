@@ -27,7 +27,7 @@ class DonutListViewModel @Inject constructor(
         _sortBy.value = sortBy
     }
 
-    private val donuts: LiveData<List<Donut>> = repository.getAll()
+    private val donuts: LiveData<List<Donut>> = repository.getAll().asLiveData()
     val donutList: LiveData<List<Donut>> =
         _sortBy.switchMap { sortBy ->
             donuts.map { list ->
