@@ -4,7 +4,9 @@ import android.util.Log
 import ca.tetervak.donutdata3.database.DonutDao
 import ca.tetervak.donutdata3.database.DonutEntity
 import ca.tetervak.donutdata3.domain.Donut
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -19,9 +21,11 @@ class DonutRepositoryRoom @Inject constructor(private val donutDao: DonutDao)
         Log.d(TAG, "init: the DonutRepositoryRoom object is created")
     }
 
-    override fun getAll(): Flow<List<Donut>> {
-        return donutDao.getAll().map { list -> list.map { it.asDonut() } }
-    }
+    override fun getAll(): Flow<List<Donut>> =
+        donutDao.getAll()
+            .map { list -> list.map { it.asDonut() } }
+            .flowOn(Dispatchers.IO)
+
 
     override suspend fun get(id: String): Donut {
         return donutDao.get(id.toLong()).asDonut()
