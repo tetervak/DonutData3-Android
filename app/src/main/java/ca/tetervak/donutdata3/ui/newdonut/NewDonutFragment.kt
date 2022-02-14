@@ -15,7 +15,6 @@ import ca.tetervak.donutdata3.databinding.NewDonutFragmentBinding
 import ca.tetervak.donutdata3.domain.Brand
 import ca.tetervak.donutdata3.domain.Donut
 import ca.tetervak.donutdata3.ui.dialogs.*
-import ca.tetervak.donutdata3.ui.editdonut.EditDonutFragment
 import ca.tetervak.donutdata3.ui.selectimage.setSelectImageResultListener
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.AndroidEntryPoint
@@ -120,7 +119,7 @@ class NewDonutFragment : Fragment() {
 
     private fun onSave() {
         if (binding.name.text.toString().isNotBlank()) {
-            mainViewModel.save(
+            mainViewModel.saveDonut(
                 Donut(
                     id = null,
                     name = binding.name.text.toString(),

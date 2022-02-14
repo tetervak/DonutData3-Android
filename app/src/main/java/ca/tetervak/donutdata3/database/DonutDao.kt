@@ -10,23 +10,23 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface DonutDao {
     @Query("SELECT * FROM donuts")
-    fun getAll(): Flow<List<DonutEntity>>
+    fun getAllDonutEntitiesFlow(): Flow<List<DonutEntity>>
 
     @Query("SELECT * FROM donuts WHERE id = :id")
-    suspend fun get(id: Long): DonutEntity
+    suspend fun getDonutEntityById(id: Long): DonutEntity
 
     @Insert
-    suspend fun insert(donut: DonutEntity): Long
+    suspend fun insertDonutEntity(donut: DonutEntity): Long
 
     @Delete
-    suspend fun delete(donut: DonutEntity)
+    suspend fun deleteDonutEntity(donut: DonutEntity)
 
     @Query("DELETE FROM donuts WHERE id=:id")
-    suspend fun delete(id: Long)
+    suspend fun deleteDonutEntityById(id: Long)
 
     @Query("DELETE FROM donuts")
-    suspend fun deleteAll()
+    suspend fun deleteAllDonutEntities()
 
     @Update
-    suspend fun update(donut: DonutEntity)
+    suspend fun updateDonutEntity(donut: DonutEntity)
 }

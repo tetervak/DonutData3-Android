@@ -143,7 +143,7 @@ class EditDonutFragment : Fragment() {
         }
 
         setConfirmationResultListener(requestKey = CONFIRM_DELETE_ITEM) { result ->
-            mainViewModel.delete(result.itemId!!)
+            mainViewModel.deleteDonutById(result.itemId!!)
             if (result.doNotAskAgain) {
                 settings.confirmDelete = false
             }
@@ -155,7 +155,7 @@ class EditDonutFragment : Fragment() {
 
     private fun onSave() {
         if (binding.name.text.toString().isNotBlank()) {
-            mainViewModel.save(
+            mainViewModel.saveDonut(
                 Donut(
                     id = safeArgs.donutId,
                     name = binding.name.text.toString(),
@@ -220,7 +220,7 @@ class EditDonutFragment : Fragment() {
                 itemId = safeArgs.donutId
             )
         } else {
-            mainViewModel.delete(safeArgs.donutId)
+            mainViewModel.deleteDonutById(safeArgs.donutId)
             showList()
         }
     }

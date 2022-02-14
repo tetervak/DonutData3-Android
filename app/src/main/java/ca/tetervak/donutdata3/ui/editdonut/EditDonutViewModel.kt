@@ -28,6 +28,6 @@ class EditDonutViewModel @Inject constructor(
 
     val donut: LiveData<Donut> =
         liveData {
-            emit(repository.get(donutId!!))
+            emit(repository.getDonutById(donutId!!))
         }
 }

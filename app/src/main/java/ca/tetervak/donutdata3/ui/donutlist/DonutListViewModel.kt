@@ -27,7 +27,7 @@ class DonutListViewModel @Inject constructor(
         _sortBy.value = sortBy
     }
 
-    private val donuts: LiveData<List<Donut>> = repository.getAll().asLiveData()
+    private val donuts: LiveData<List<Donut>> = repository.getAllDonutsFlow().asLiveData()
     val donutList: LiveData<List<Donut>> =
         _sortBy.switchMap { sortBy ->
             donuts.map { list ->
@@ -39,8 +39,8 @@ class DonutListViewModel @Inject constructor(
         Log.d(TAG, "init: the DonutListViewModel object is created")
     }
 
-    fun deleteAll() =
+    fun deleteAllDonuts() =
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteAll()
+            repository.deleteAllDonuts()
         }
 }

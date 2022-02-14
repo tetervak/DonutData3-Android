@@ -66,7 +66,7 @@ class DonutListFragment : Fragment() {
                         itemId = donut.id
                     )
                 }else{
-                    mainViewModel.delete(donut)
+                    mainViewModel.deleteDonut(donut)
                 }
             }
         )
@@ -85,7 +85,7 @@ class DonutListFragment : Fragment() {
             requestKey = CONFIRM_CLEAR_ALL
         ) { result ->
             Log.d(TAG, "onCreateView: clear all is confirmed")
-            donutListViewModel.deleteAll()
+            donutListViewModel.deleteAllDonuts()
             if (result.doNotAskAgain) {
                 settings.confirmClear = false
             }
@@ -93,7 +93,7 @@ class DonutListFragment : Fragment() {
 
         setConfirmationResultListener(CONFIRM_DELETE_ITEM) { result ->
             Log.d(TAG, "onCreateView: delete item id=${result.itemId} is confirmed")
-            mainViewModel.delete(result.itemId!!)
+            mainViewModel.deleteDonutById(result.itemId!!)
             if (result.doNotAskAgain) {
                 settings.confirmDelete = false
             }
@@ -117,7 +117,7 @@ class DonutListFragment : Fragment() {
                         message = getString(R.string.confirm_clear_message)
                     )
                 }else{
-                    donutListViewModel.deleteAll()
+                    donutListViewModel.deleteAllDonuts()
                 }
                 true
             }

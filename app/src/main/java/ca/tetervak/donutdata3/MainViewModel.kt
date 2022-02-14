@@ -23,22 +23,22 @@ class MainViewModel @Inject constructor(
         Log.d(TAG, "init: the MainViewModel is created")
     }
 
-    fun delete(donut: Donut) =
+    fun deleteDonut(donut: Donut) =
         viewModelScope.launch(Dispatchers.IO) {
-            repository.delete(donut)
+            repository.deleteDonut(donut)
         }
 
-    fun delete(id: String) =
+    fun deleteDonutById(id: String) =
         viewModelScope.launch(Dispatchers.IO) {
-            repository.delete(id)
+            repository.deleteDonutById(id)
         }
 
-    fun save(donut: Donut) =
+    fun saveDonut(donut: Donut) =
         viewModelScope.launch(Dispatchers.IO) {
             if (donut.id == null) {
-                repository.insert(donut)
+                repository.insertDonut(donut)
             } else {
-                repository.update(donut)
+                repository.updateDonut(donut)
             }
         }
 }

@@ -4,11 +4,11 @@ import ca.tetervak.donutdata3.domain.Donut
 import kotlinx.coroutines.flow.Flow
 
 interface DonutRepository {
-    fun getAll(): Flow<List<Donut>>
-    suspend fun get(id: String): Donut
-    suspend fun insert(donut: Donut): Long
-    suspend fun delete(donut: Donut)
-    suspend fun delete(id: String)
-    suspend fun update(donut: Donut)
-    suspend fun deleteAll()
+    fun getAllDonutsFlow(): Flow<List<Donut>>
+    suspend fun getDonutById(id: String): Donut
+    suspend fun insertDonut(donut: Donut): String
+    suspend fun deleteDonut(donut: Donut)
+    suspend fun deleteDonutById(id: String)
+    suspend fun updateDonut(donut: Donut)
+    suspend fun deleteAllDonuts()
 }

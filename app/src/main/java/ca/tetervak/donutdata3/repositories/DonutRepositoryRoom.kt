@@ -21,36 +21,36 @@ class DonutRepositoryRoom @Inject constructor(private val donutDao: DonutDao)
         Log.d(TAG, "init: the DonutRepositoryRoom object is created")
     }
 
-    override fun getAll(): Flow<List<Donut>> =
-        donutDao.getAll()
+    override fun getAllDonutsFlow(): Flow<List<Donut>> =
+        donutDao.getAllDonutEntitiesFlow()
             .map { list -> list.map { it.asDonut() } }
             .flowOn(Dispatchers.IO)
 
 
-    override suspend fun get(id: String): Donut {
-        return donutDao.get(id.toLong()).asDonut()
+    override suspend fun getDonutById(id: String): Donut {
+        return donutDao.getDonutEntityById(id.toLong()).asDonut()
     }
 
-    override suspend fun insert(donut: Donut): Long {
-        return donutDao.insert(donut.asEntity())
+    override suspend fun insertDonut(donut: Donut): String {
+        return donutDao.insertDonutEntity(donut.asEntity()).toString()
     }
 
-    override suspend fun delete(donut: Donut) {
+    override suspend fun deleteDonut(donut: Donut) {
         if (donut.id != null) {
-            donutDao.delete(donut.id.toLong())
+            donutDao.deleteDonutEntity(donut.asEntity())
         }
     }
 
-    override suspend fun delete(id: String) {
-        donutDao.delete(id.toLong())
+    override suspend fun deleteDonutById(id: String) {
+        donutDao.deleteDonutEntityById(id.toLong())
     }
 
-    override suspend fun update(donut: Donut) {
-        donutDao.update(donut.asEntity())
+    override suspend fun updateDonut(donut: Donut) {
+        donutDao.updateDonutEntity(donut.asEntity())
     }
 
-    override suspend fun deleteAll() {
-        donutDao.deleteAll()
+    override suspend fun deleteAllDonuts() {
+        donutDao.deleteAllDonutEntities()
     }
 }
 
