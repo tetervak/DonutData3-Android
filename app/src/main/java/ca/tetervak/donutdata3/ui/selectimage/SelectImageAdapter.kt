@@ -3,62 +3,64 @@ package ca.tetervak.donutdata3.ui.selectimage
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ca.tetervak.donutdata3.R
 import ca.tetervak.donutdata3.databinding.SelectImageItemBinding
 
-class SelectImageAdapter(
-    private var onSelect: (String) -> Unit
-): RecyclerView.Adapter<SelectImageAdapter.ViewHolder>(){
+class SelectImageAdapter() : ListAdapter<ImageListItemUiState, SelectImageAdapter.ViewHolder>(
+    ImageListItemUiStateDiffCallback()
+) {
 
-    private var list: List<String>? = null
-
-    private var selectedItemIndex: Int? = null
-    set(index){
-        if(index != field){
-            val previouslySelected = field
-            field = index
-            if(index != null){
-                notifyItemChanged(index)
-            }
-            if(previouslySelected != null){
-                notifyItemChanged(previouslySelected)
-            }
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun submitList(list: List<String>){
-        this.list = list
-        notifyDataSetChanged()
-    }
-
-    inner class ViewHolder(
+    class ViewHolder(
         private val binding: SelectImageItemBinding
-    ): RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(index: Int){
+        fun bind(uiState: ImageListItemUiState) {
+
+            binding.fileName = uiState.fileName
+
+            binding.card.setOnClickListener {
+                uiState.onSelect()
+            }
+
             val resources = binding.root.resources
             val card = binding.card
-            if(index == selectedItemIndex){
+            if (uiState.isSelected) {
                 card.cardElevation =
                     resources.getDimension(R.dimen.card_elevation_selected)
                 card.setCardBackgroundColor(
-                    resources.getColor(R.color.blue_100,null))
-            }else{
+                    resources.getColor(R.color.blue_100, null)
+                )
+            } else {
                 card.cardElevation =
                     resources.getDimension(R.dimen.card_elevation_default)
                 card.setCardBackgroundColor(
-                    resources.getColor(R.color.white,null))
+                    resources.getColor(R.color.white, null)
+                )
             }
-            val fileName = getItem(index)
-            binding.fileName = fileName
-            binding.card.setOnClickListener {
-                selectedItemIndex = index
-                onSelect(fileName)
-            }
+
             binding.executePendingBindings()
         }
+    }
+
+    class ImageListItemUiStateDiffCallback : DiffUtil.ItemCallback<ImageListItemUiState>() {
+
+        override fun areItemsTheSame(
+            oldItem: ImageListItemUiState,
+            newItem: ImageListItemUiState
+        ): Boolean {
+            return oldItem.fileName == newItem.fileName
+        }
+
+        override fun areContentsTheSame(
+            oldItem: ImageListItemUiState,
+            newItem: ImageListItemUiState
+        ): Boolean {
+            return oldItem == newItem
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -68,19 +70,8 @@ class SelectImageAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(position)
+        holder.bind(getItem(position))
     }
 
-    fun getItem(index: Int): String{
-        return list!![index]
-    }
-
-    override fun getItemCount(): Int {
-        return list?.size ?: 0
-    }
-
-    fun selectImage(fileName: String){
-        selectedItemIndex = list?.indexOf(fileName)
-    }
 
 }

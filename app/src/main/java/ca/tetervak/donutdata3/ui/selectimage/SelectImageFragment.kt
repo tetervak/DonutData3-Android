@@ -1,7 +1,6 @@
 package ca.tetervak.donutdata3.ui.selectimage
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +8,16 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import androidx.navigation.NavController
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.flow.collect
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ca.tetervak.donutdata3.databinding.SelectImageFragmentBinding
-import ca.tetervak.donutdata3.ui.newdonut.NewDonutFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 fun Fragment.setSelectImageResultListener(
     requestKey: String,
@@ -49,9 +51,8 @@ class SelectImageFragment : Fragment() {
     }
 
     private val safeArgs: SelectImageFragmentArgs by navArgs()
-    private val selectImageViewModel: SelectImageViewModel by viewModels()
+    private val viewModel: SelectImageViewModel by viewModels()
     private lateinit var adapter: SelectImageAdapter
-    private lateinit var fileName: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,19 +61,15 @@ class SelectImageFragment : Fragment() {
 
         val binding = SelectImageFragmentBinding.inflate(inflater, container, false)
         val navController = findNavController()
-        fileName = safeArgs.fileName
 
-        if(savedInstanceState is Bundle){
-            fileName = savedInstanceState.getString(FILE_NAME)!!
-        }
-
-        adapter = SelectImageAdapter{ name ->
-            fileName = name
-        }
+        adapter = SelectImageAdapter()
         binding.recyclerView.adapter = adapter
-        selectImageViewModel.imageList.observe(viewLifecycleOwner){ list ->
-            adapter.submitList(list)
-            adapter.selectImage(fileName)
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { itemUiStateList ->
+                    adapter.submitList(itemUiStateList)
+                }
+            }
         }
 
         binding.cancelButton.setOnClickListener{
@@ -81,16 +78,11 @@ class SelectImageFragment : Fragment() {
 
         binding.okButton.setOnClickListener {
             parentFragmentManager.setFragmentResult(
-                safeArgs.requestKey, bundleOf(FILE_NAME to fileName))
+                safeArgs.requestKey, bundleOf(FILE_NAME to viewModel.selectedFileName))
             navController.popBackStack()
         }
 
         return binding.root
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(FILE_NAME, fileName)
     }
 
 }
