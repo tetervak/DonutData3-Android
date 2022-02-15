@@ -50,7 +50,6 @@ class SelectImageFragment : Fragment() {
 
     private val safeArgs: SelectImageFragmentArgs by navArgs()
     private val selectImageViewModel: SelectImageViewModel by viewModels()
-    private lateinit var navController: NavController
     private lateinit var adapter: SelectImageAdapter
     private lateinit var fileName: String
 
@@ -60,7 +59,7 @@ class SelectImageFragment : Fragment() {
     ): View {
 
         val binding = SelectImageFragmentBinding.inflate(inflater, container, false)
-        navController = findNavController()
+        val navController = findNavController()
         fileName = safeArgs.fileName
 
         if(savedInstanceState is Bundle){

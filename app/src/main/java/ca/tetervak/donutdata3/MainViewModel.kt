@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ca.tetervak.donutdata3.domain.Donut
-import ca.tetervak.donutdata3.repositories.DonutRepository
+import ca.tetervak.donutdata3.repositories.DonutDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repository: DonutRepository
+    private val repository: DonutDataRepository
 ) : ViewModel() {
 
     companion object{

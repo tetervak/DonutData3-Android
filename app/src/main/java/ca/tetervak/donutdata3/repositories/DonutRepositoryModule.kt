@@ -12,5 +12,13 @@ abstract class DonutRepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun bindDonutRepository(repository: DonutRepositoryRoom): DonutRepository
+    abstract fun bindDonutDataRepository(
+        repository: DonutRepositoryRoom
+    ): DonutDataRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindDonutImageUriRepository(
+        repository: DonutImageNameRepositoryAssets
+    ): DonutImageNameRepository
 }

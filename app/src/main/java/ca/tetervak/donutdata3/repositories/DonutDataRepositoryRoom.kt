@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DonutRepositoryRoom @Inject constructor(private val donutDao: DonutDao)
-    : DonutRepository {
+    : DonutDataRepository {
 
     companion object{
         private const val TAG = "DonutRepositoryRoom"

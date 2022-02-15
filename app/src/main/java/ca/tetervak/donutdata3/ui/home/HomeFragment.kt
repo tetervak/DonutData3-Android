@@ -13,6 +13,7 @@ class HomeFragment : Fragment() {
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -20,14 +21,16 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
 
+        val navController = findNavController()
+
         binding.addDonutButton.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeToNewDonut()
-            findNavController().navigate(action)
+            navController.navigate(action)
         }
 
         binding.listDonutsButton.setOnClickListener{
             val action = HomeFragmentDirections.actionGlobalDonutList()
-            findNavController().navigate(action)
+            navController.navigate(action)
         }
 
         return binding.root

@@ -5,7 +5,7 @@ import androidx.lifecycle.*
 import ca.tetervak.donutdata3.domain.Donut
 import ca.tetervak.donutdata3.domain.SortBy
 import ca.tetervak.donutdata3.domain.sort
-import ca.tetervak.donutdata3.repositories.DonutRepository
+import ca.tetervak.donutdata3.repositories.DonutDataRepository
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DonutListViewModel @Inject constructor(
-    private val repository: DonutRepository,
+    private val repository: DonutDataRepository,
     settings: DonutDataSettings
 ) : ViewModel() {
 
