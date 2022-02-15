@@ -27,10 +27,10 @@ class DonutListViewModel @Inject constructor(
         _sortBy.value = sortBy
     }
 
-    private val donuts: LiveData<List<Donut>> = repository.getAllDonutsFlow().asLiveData()
-    val donutList: LiveData<List<Donut>> =
+    private val _donuts: LiveData<List<Donut>> = repository.getAllDonutsFlow().asLiveData()
+    val donuts: LiveData<List<Donut>> =
         _sortBy.switchMap { sortBy ->
-            donuts.map { list ->
+            _donuts.map { list ->
                 sort(list, sortBy)
             }
         }

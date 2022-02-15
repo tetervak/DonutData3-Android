@@ -27,7 +27,7 @@
                 android:layout_marginTop="@dimen/margin"
                 android:layout_marginBottom="@dimen/small_margin"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                donutCount="@{viewModel.donutList}"
+                donutCount="@{viewModel.donuts}"
                 tools:ignore="RtlHardcoded"
                 tools:text="Donut Count: 3 donuts" />
 
@@ -42,7 +42,7 @@
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                donutList="@{viewModel.donutList}"
+                donutList="@{viewModel.donuts}"
                 tools:listitem="@layout/donut_list_item"
                 app:layoutManager="LinearLayoutManager" />
         </LinearLayout>
