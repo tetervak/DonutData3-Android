@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import ca.tetervak.donutdata3.MainViewModel
 import ca.tetervak.donutdata3.R
 import ca.tetervak.donutdata3.databinding.NewDonutFragmentBinding
-import ca.tetervak.donutdata3.domain.Brand
-import ca.tetervak.donutdata3.domain.Donut
+import ca.tetervak.donutdata3.model.Brand
+import ca.tetervak.donutdata3.model.Donut
 import ca.tetervak.donutdata3.ui.dialogs.*
 import ca.tetervak.donutdata3.ui.selectimage.setSelectImageResultListener
 import ca.tetervak.donutdata3.ui.settings.DonutDataSettings

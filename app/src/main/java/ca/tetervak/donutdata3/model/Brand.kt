@@ -1,4 +1,4 @@
-package ca.tetervak.donutdata3.domain
+package ca.tetervak.donutdata3.model
 
 enum class Brand {
     TIM_HORTONS,

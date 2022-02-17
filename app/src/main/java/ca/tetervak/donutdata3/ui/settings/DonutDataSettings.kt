@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
-import ca.tetervak.donutdata3.domain.Brand
+import ca.tetervak.donutdata3.model.Brand
 import ca.tetervak.donutdata3.domain.SortBy
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

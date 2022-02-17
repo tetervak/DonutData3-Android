@@ -2,7 +2,7 @@ package ca.tetervak.donutdata3.ui.binding
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ca.tetervak.donutdata3.domain.Donut
+import ca.tetervak.donutdata3.model.Donut
 import ca.tetervak.donutdata3.ui.donutlist.DonutListAdapter
 
 @BindingAdapter("donutList")

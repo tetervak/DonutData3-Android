@@ -2,7 +2,7 @@ package ca.tetervak.donutdata3.ui.donutlist
 
 import android.util.Log
 import androidx.lifecycle.*
-import ca.tetervak.donutdata3.domain.Donut
+import ca.tetervak.donutdata3.model.Donut
 import ca.tetervak.donutdata3.domain.SortBy
 import ca.tetervak.donutdata3.domain.sort
 import ca.tetervak.donutdata3.repositories.DonutDataRepository

@@ -3,7 +3,7 @@ package ca.tetervak.donutdata3.ui.binding
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import ca.tetervak.donutdata3.R
-import ca.tetervak.donutdata3.domain.Brand
+import ca.tetervak.donutdata3.model.Brand
 
 @BindingAdapter("brandName")
 fun bindBrandName(textView: TextView, brand: Brand?){

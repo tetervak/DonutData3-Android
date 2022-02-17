@@ -1,5 +1,6 @@
-package ca.tetervak.donutdata3.domain
+package ca.tetervak.donutdata3.model
 
+import ca.tetervak.donutdata3.model.Brand
 import java.util.*
 
 data class Donut(

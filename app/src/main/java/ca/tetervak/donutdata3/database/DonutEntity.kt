@@ -3,7 +3,7 @@ package ca.tetervak.donutdata3.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import ca.tetervak.donutdata3.domain.Brand
+import ca.tetervak.donutdata3.model.Brand
 import java.util.*
 
 @Entity(tableName = "donuts")

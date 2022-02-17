@@ -3,7 +3,7 @@ package ca.tetervak.donutdata3.repositories
 import android.util.Log
 import ca.tetervak.donutdata3.database.DonutDao
 import ca.tetervak.donutdata3.database.DonutEntity
-import ca.tetervak.donutdata3.domain.Donut
+import ca.tetervak.donutdata3.model.Donut
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn

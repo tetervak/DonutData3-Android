@@ -1,5 +1,7 @@
 package ca.tetervak.donutdata3.domain
 
+import ca.tetervak.donutdata3.model.Donut
+
 fun sortById(list: List<Donut>): List<Donut>{
     return list.sortedBy { it.id }
 }

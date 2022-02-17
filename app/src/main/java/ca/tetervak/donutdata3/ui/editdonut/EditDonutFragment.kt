@@ -12,8 +12,8 @@ import androidx.navigation.fragment.navArgs
 import ca.tetervak.donutdata3.MainViewModel
 import ca.tetervak.donutdata3.R
 import ca.tetervak.donutdata3.databinding.EditDonutFragmentBinding
-import ca.tetervak.donutdata3.domain.Brand
-import ca.tetervak.donutdata3.domain.Donut
+import ca.tetervak.donutdata3.model.Brand
+import ca.tetervak.donutdata3.model.Donut
 import ca.tetervak.donutdata3.ui.binding.bindDate
 import ca.tetervak.donutdata3.ui.binding.bindDonutImage
 import ca.tetervak.donutdata3.ui.binding.bindTime

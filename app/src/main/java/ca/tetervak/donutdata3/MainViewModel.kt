@@ -3,7 +3,7 @@ package ca.tetervak.donutdata3
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ca.tetervak.donutdata3.domain.Donut
+import ca.tetervak.donutdata3.model.Donut
 import ca.tetervak.donutdata3.repositories.DonutDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

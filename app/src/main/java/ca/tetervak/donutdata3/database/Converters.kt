@@ -1,7 +1,7 @@
 package ca.tetervak.donutdata3.database
 
 import androidx.room.TypeConverter
-import ca.tetervak.donutdata3.domain.Brand
+import ca.tetervak.donutdata3.model.Brand
 import java.util.*
 
 class Converters {
@@ -22,7 +22,7 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromIntToBrand(code: Int): Brand{
+    fun fromIntToBrand(code: Int): Brand {
         return Brand.values()[code]
     }
 }

@@ -1,6 +1,6 @@
 package ca.tetervak.donutdata3.repositories
 
-import ca.tetervak.donutdata3.domain.Donut
+import ca.tetervak.donutdata3.model.Donut
 import kotlinx.coroutines.flow.Flow
 
 interface DonutDataRepository {
